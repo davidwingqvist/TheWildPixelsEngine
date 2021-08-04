@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{15717c54-f6c6-4cb0-8d23-1328695017b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{f3d18652-4197-408d-b9c9-92aad1b4b77a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{e6e13b9f-6201-49ca-be1d-ae09a8e6b68c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UsefulHeaders">
+      <UniqueIdentifier>{1e253f2c-0341-4f1a-9554-8c9593501cab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics">
+      <UniqueIdentifier>{f88dee0f-771e-4c45-8804-aed0d0f10ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\State">
+      <UniqueIdentifier>{547fce42-2457-4e1f-ba6f-a69eb30ca19d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\RenderPasses">
+      <UniqueIdentifier>{ab18803c-213b-43db-8ae6-3b749bd60d2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{72a610c4-c421-4bfa-9c76-ea9456c0f235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Player">
+      <UniqueIdentifier>{1d5ca045-ac75-4556-bf6e-373ae477dc65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Multithreading">
+      <UniqueIdentifier>{1e94f010-6a56-4c81-b11f-6a57f57921e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\I/O">
+      <UniqueIdentifier>{98e4f951-807d-4ff7-9166-6b457dba1e3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Camera">
+      <UniqueIdentifier>{39e560a0-996f-4533-8703-087a206750cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\RenderPasses\Geometry Pass">
+      <UniqueIdentifier>{4f7da9dc-5c5e-424d-b236-4b877ca7c6cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\RenderPasses\Light Pass">
+      <UniqueIdentifier>{09de3311-7045-482d-b1c5-1475de13882a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Storage">
+      <UniqueIdentifier>{3bb9507f-da38-4121-8f01-52a16f09fd01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemy">
+      <UniqueIdentifier>{7b4a885e-e035-4f6b-9366-752f844f1990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\RenderPasses\Loading Screen Pass">
+      <UniqueIdentifier>{6b8cf0d9-59c2-4b28-9007-b3f83f63d321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Objects">
+      <UniqueIdentifier>{a8597a95-98bd-4539-9ac4-0e65d6bbe8fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Storage\Resource">
+      <UniqueIdentifier>{eb9f3d97-c77a-436f-bf6a-0689bea9794c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Storage\Resource\Texture">
+      <UniqueIdentifier>{df86bf94-65d4-413c-9d15-26fdf7eb242e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Storage\Resource\Mesh">
+      <UniqueIdentifier>{ae2ab6d4-d198-492c-b3bc-fab9ea68434b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{003f648d-fbeb-4321-8d3f-f85c1d0fa910}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Engine\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="multi_thread_manager.cpp">
+      <Filter>Engine\Multithreading</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshObject.cpp">
+      <Filter>Engine\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Graphics\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Engine\Storage\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Engine\Storage\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Engine\Storage\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Engine\Storage\Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Engine\Input</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Structures.h">
+      <Filter>Header Files\UsefulHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Engine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Engine\State</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="multi_thread_manager.h">
+      <Filter>Engine\Multithreading</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadFromObj.h">
+      <Filter>Engine\I/O</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshObject.h">
+      <Filter>Engine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Storage.h">
+      <Filter>Engine\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Engine\I/O</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Engine\Storage\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Engine\Storage\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\Storage\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Engine\Storage\Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="GeometryPassPixelShader.hlsl">
+      <Filter>Engine\RenderPasses\Geometry Pass</Filter>
+    </FxCompile>
+    <FxCompile Include="GeometryPassVertex.hlsl">
+      <Filter>Engine\RenderPasses\Geometry Pass</Filter>
+    </FxCompile>
+    <FxCompile Include="LightPassVertex.hlsl">
+      <Filter>Engine\RenderPasses\Light Pass</Filter>
+    </FxCompile>
+    <FxCompile Include="LightPassPixelShader.hlsl">
+      <Filter>Engine\RenderPasses\Light Pass</Filter>
+    </FxCompile>
+    <FxCompile Include="LoadingVertexShader.hlsl">
+      <Filter>Engine\RenderPasses\Loading Screen Pass</Filter>
+    </FxCompile>
+    <FxCompile Include="LoadingPixelShader.hlsl">
+      <Filter>Engine\RenderPasses\Loading Screen Pass</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
