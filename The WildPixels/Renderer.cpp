@@ -338,6 +338,7 @@ bool Renderer::InitializeLoadingScreen(std::string filePath)
 	Graphics::GetDevice()->CreatePixelShader(shaderData2.c_str(), shaderData2.length(), nullptr, &this->loadingPixelShader);
 
 	this->filePath = filePath;
+
 	THREAD_JOB(Renderer, LoadTexture);
 
 	return true;

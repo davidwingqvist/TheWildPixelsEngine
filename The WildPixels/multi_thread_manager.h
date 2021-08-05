@@ -126,8 +126,8 @@ public:
 	// Allows storage into an unordered_map with index indicating which thread emplaced it and the texture data placed within the keyed spot.
 	static void StoreData(char* data, unsigned int index);
 
-	static std::string GetTextureData(unsigned int index);
+	static std::string GetTextureData(unsigned int index); 
 };
 
-#define THREAD_JOB(class_name, function_name) MultiThreader::InsertJob(std::bind(&class_name::function_name, &*this))
+#define THREAD_JOB(class_name, function_name) (MultiThreader::IsActive()) ? MultiThreader::InsertJob(std::bind(&class_name::function_name, &*this)) : class_name::function_name()
 #define THREAD_SINGLETON_JOB(class_name, function_name) MultiThreader::InsertJob(std::bind(&class_name::function_name, &*class_name::instance))

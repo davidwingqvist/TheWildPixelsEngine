@@ -76,7 +76,7 @@ MultiThreader::MultiThreader()
 	this->statuses = nullptr;
 	this->pooledThreads = nullptr;
 	this->pooled = 0;
-	this->isActive = true;
+	this->isActive = false;
 	this->type = ThreadType::DEFAULT;
 }
 
@@ -92,6 +92,9 @@ void MultiThreader::Init(unsigned int amount, ThreadType type)
 	{
 		MULTITHREADER = new MultiThreader;
 		MULTITHREADER->activeThreads = 0;
+
+		if (amount == 0)
+			return;
 
 		MULTITHREADER->statuses = new unsigned int[availableCores];
 		for (int i = 0; i < availableCores; i++)
@@ -135,9 +138,9 @@ void MultiThreader::Destroy()
 
 void MultiThreader::Pool(unsigned int amount)
 {
-	MULTITHREADER->isActive = true;
-	if (amount <= (unsigned int)availableCores && amount >= 0)
+	if (amount <= (unsigned int)availableCores && amount > 0)
 	{
+		MULTITHREADER->isActive = true;
 		MULTITHREADER->pooled = amount;
 		MULTITHREADER->pooledThreads = new std::thread[amount];
 		for (unsigned int i = 0; i < amount; i++)
@@ -149,6 +152,7 @@ void MultiThreader::Pool(unsigned int amount)
 	}
 	else
 	{
+		MULTITHREADER->isActive = true;
 		MULTITHREADER->pooled = availableCores;
 		MULTITHREADER->pooledThreads = new std::thread[availableCores];
 		for (unsigned int i = 0; i < (unsigned int)availableCores; i++)

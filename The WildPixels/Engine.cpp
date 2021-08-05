@@ -105,7 +105,7 @@ bool Engine::SetUp(HINSTANCE instance, UINT width, UINT height)
 	this->RedirectIoToConsole();
 //#endif
 
-	MultiThreader::Init(availableCores, ThreadType::POOL_FIFO);
+	MultiThreader::Init(1, ThreadType::POOL_FIFO);
 	ResourceManager::Initialize();
 
 	if (!Graphics::Initialize(instance, width, height))
