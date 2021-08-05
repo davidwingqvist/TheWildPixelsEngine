@@ -1,4 +1,6 @@
 #include "Window.h"
+#include <WinUser.h>
+#include <string>
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -37,15 +39,20 @@ bool Window::SetUp(HINSTANCE instance, UINT width, UINT height)
 
 	RegisterClass(&wc);
 
-	window = CreateWindowEx(0, CLASS_NAME, L"The WildPixels", WS_OVERLAPPEDWINDOW,
+#ifdef _DEBUG
+	window = CreateWindowEx(0, CLASS_NAME, L"The WildPixels Engine", WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, width, height, nullptr, nullptr, instance, nullptr);
+#else
+	window = CreateWindowEx(0, CLASS_NAME, L"GAME NAME", WS_POPUP,
+		CW_USEDEFAULT, 0, width, height, nullptr, nullptr, instance, nullptr)
+#endif
 
 	if (window == nullptr)
 	{
 		return false;
 	}
 
-	ShowWindow(window, 1);
+	ShowWindow(window, SW_SHOW);
 	return true;
 }
 

@@ -354,6 +354,9 @@ void Renderer::PrepareGeometryPass()
 			CONTEXT->ClearRenderTargetView(this->renderTargetViews[i], ft);
 	}
 
+	if(this->depthStencilView)
+		CONTEXT->ClearDepthStencilView(this->depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, (UINT8)0);
+
 	CONTEXT->VSSetShader(this->vertexShader, nullptr, 0);
 	CONTEXT->PSSetShader(this->pixelShader, nullptr, 0);
 	CONTEXT->IASetInputLayout(this->inputLayout);

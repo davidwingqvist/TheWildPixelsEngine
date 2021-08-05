@@ -40,7 +40,14 @@ public:
 	static void Present();
 	static UINT GetWidth();
 	static UINT GetHeight();
+	static HWND GetWindow();
 
 	// No depth buffer.
 	static void SetBackbufferAsTarget();
 };
+
+/*
+	---Cool defines---
+*/
+
+#define WindowText(text) SetWindowTextA(Graphics::GetWindow(), text)

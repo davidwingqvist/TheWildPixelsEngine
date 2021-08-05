@@ -11,9 +11,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int       nCmdShow)
 {
 	Game game;
-	UINT width = 1280;
+	UINT width = 1920;
 	UINT height = 1080;
 
+	// Disables the notification of program being "unresponsive" but its only loading shit.
 	DisableProcessWindowsGhosting();
 
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -26,6 +27,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	MSG msg = { };
 	double currentFrame = 0.f, lastFrame = omp_get_wtime();
 	float deltaTime = 0.f, deltaSum = 0.f;
+
+	// Desired FPS
 	const float targetDelta = 1 / 100000000000000000000000.f;
 	while (!(GetKeyState(VK_ESCAPE) & 0x8000) && msg.message != WM_QUIT)
 	{

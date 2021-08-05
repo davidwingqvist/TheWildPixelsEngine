@@ -107,6 +107,11 @@ UINT Graphics::GetHeight()
 	return GRAPHICS->winHeight;
 }
 
+HWND Graphics::GetWindow()
+{
+	return GRAPHICS->window.getWindow();
+}
+
 void Graphics::SetBackbufferAsTarget()
 {
 	if(Graphics::instance->context != nullptr)

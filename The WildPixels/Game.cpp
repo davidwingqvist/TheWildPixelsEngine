@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <cstring>
 
 /*
 	---------INPUTS---------
@@ -143,12 +144,9 @@ bool Game::Update(float& dt)
 {
 	
 	Graphics::deltaTime = dt;
-
 	
 	if (HandleExceptionRendering())
 		return true;
-	
-	
 	
 	this->HandleInput();
 	switch (this->currentState)
