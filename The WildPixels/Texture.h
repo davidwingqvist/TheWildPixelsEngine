@@ -8,6 +8,7 @@ private:
 
 	ID3D11Texture2D* texture;
 	ID3D11ShaderResourceView* textureShader;
+	bool hasLoaded;
 
 public:
 
@@ -15,4 +16,5 @@ public:
 	~Texture();
 
 	ID3D11ShaderResourceView*& GetShaderView();
+	const bool HasLoaded() const;
 };

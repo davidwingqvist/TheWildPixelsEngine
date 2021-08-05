@@ -2,6 +2,7 @@
 
 Player::Player()
 {
+	this->stats = { 0 };
 }
 
 Player::~Player()

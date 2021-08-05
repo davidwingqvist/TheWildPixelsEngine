@@ -46,9 +46,6 @@
     <Filter Include="Engine\I/O">
       <UniqueIdentifier>{98e4f951-807d-4ff7-9166-6b457dba1e3b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics\Camera">
-      <UniqueIdentifier>{39e560a0-996f-4533-8703-087a206750cd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\RenderPasses\Geometry Pass">
       <UniqueIdentifier>{4f7da9dc-5c5e-424d-b236-4b877ca7c6cc}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     </Filter>
     <Filter Include="Engine\Input">
       <UniqueIdentifier>{003f648d-fbeb-4321-8d3f-f85c1d0fa910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Camera">
+      <UniqueIdentifier>{39e560a0-996f-4533-8703-087a206750cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -118,7 +118,7 @@
       <Filter>Engine\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Engine\Graphics\Camera</Filter>
+      <Filter>Engine\Camera</Filter>
     </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
       <Filter>Game\Enemy</Filter>
@@ -186,7 +186,7 @@
       <Filter>Engine\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Engine\Graphics\Camera</Filter>
+      <Filter>Engine\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Storage.h">
       <Filter>Engine\Storage</Filter>

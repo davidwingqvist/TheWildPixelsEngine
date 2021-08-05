@@ -7,6 +7,7 @@ Texture::Texture(std::string&& filePath)
 {
 	this->texture = nullptr;
 	this->textureShader = nullptr;
+	this->hasLoaded = false;
 
 	int width, height, channels;
 	unsigned char* image = stbi_load(filePath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
@@ -39,6 +40,7 @@ Texture::Texture(std::string&& filePath)
 		DEVICE->CreateShaderResourceView(this->texture, 0, &this->textureShader);
 
 	stbi_image_free(image);
+	this->hasLoaded = true;
 }
 
 Texture::~Texture()
@@ -52,4 +54,9 @@ Texture::~Texture()
 ID3D11ShaderResourceView*& Texture::GetShaderView()
 {
 	return this->textureShader;
+}
+
+const bool Texture::HasLoaded() const
+{
+	return this->hasLoaded;
 }

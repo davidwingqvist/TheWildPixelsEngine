@@ -4,6 +4,7 @@
 #include <fstream>
 #include "stb_image.h"
 #include "ResourceManager.h"
+#include <omp.h>
 
 void Renderer::SetupGeometryPass()
 {
@@ -107,6 +108,7 @@ void Renderer::SetupGeometryPass()
 	rDesc.SlopeScaledDepthBias = 0.0f;
 
 	DEVICE->CreateRasterizerState(&rDesc, &this->rastState);
+	//CONTEXT->RSSetState(this->rastState);
 
 //#ifdef _DEBUG
 	std::cout << "[THREAD/RENDERER]Geometry Pass has been setup.\n";
@@ -205,6 +207,7 @@ void Renderer::CheckLoaded()
 
 void Renderer::LoadTexture()
 {
+
 	this->loadTexture = RESOURCE(Texture, std::string(filePath));
 	if (!this->loadTexture)
 	{
@@ -297,8 +300,11 @@ Renderer::~Renderer()
 bool Renderer::Initialize()
 {
 	THREAD_JOB(Renderer, SetupGeometryPass);
+	//SetupGeometryPass();
 	THREAD_JOB(Renderer, SetupLightPass);
+	//SetupLightPass();
 
+	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	return true;
 }
 
@@ -339,19 +345,18 @@ bool Renderer::InitializeLoadingScreen(std::string filePath)
 
 void Renderer::PrepareGeometryPass()
 {
+	
 	FLOAT ft[4] = { 0.0f };
 	for (int i = 0; i < BUFFERS; i++)
 	{
-		CONTEXT->ClearRenderTargetView(this->renderTargetViews[i], ft);
+		if(this->renderTargetViews[i])
+			CONTEXT->ClearRenderTargetView(this->renderTargetViews[i], ft);
 	}
 
-
-	CONTEXT->RSSetState(this->rastState);
 	CONTEXT->VSSetShader(this->vertexShader, nullptr, 0);
 	CONTEXT->PSSetShader(this->pixelShader, nullptr, 0);
 	CONTEXT->IASetInputLayout(this->inputLayout);
 	CONTEXT->OMSetRenderTargets(BUFFERS, this->renderTargetViews, this->depthStencilView);
-	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	CONTEXT->PSSetSamplers(0, 1, &this->sampler);
 	CONTEXT->RSSetViewports(1, &this->viewPort);
 
@@ -363,14 +368,11 @@ void Renderer::PrepareGeometryPass()
 void Renderer::UnbindGeometryPass()
 {
 	ID3D11InputLayout* nullLayout = nullptr;
-
 	ID3D11RenderTargetView* nullTargets[BUFFERS] = { nullptr };
 	ID3D11DepthStencilView* nullDepth = nullptr;
 
 	CONTEXT->IASetInputLayout(nullLayout);
 	CONTEXT->OMSetRenderTargets(BUFFERS, nullTargets, nullDepth);
-
-	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 void Renderer::RenderLightPass()
@@ -401,9 +403,11 @@ void Renderer::UnbindLightPass()
 	ID3D11DepthStencilView* nullDepth = nullptr;
 
 	ID3D11ShaderResourceView* nullShaders[BUFFERS] = { nullptr };
+	ID3D11Buffer* indexNull = nullptr;
 
-	CONTEXT->IASetInputLayout(nullLayout);
+	//CONTEXT->IASetInputLayout(nullLayout);
 
+	CONTEXT->IASetIndexBuffer(indexNull, DXGI_FORMAT_R32_UINT, 0);
 	CONTEXT->OMSetRenderTargets(BUFFERS, nullTargets, nullDepth);
 	CONTEXT->PSSetShaderResources(0, BUFFERS, nullShaders);
 }
@@ -415,7 +419,6 @@ void Renderer::LoadingScreen()
 
 	CONTEXT->IASetVertexBuffers(0, 1, &this->lightVertexBuffer, &stride, &offset);
 	CONTEXT->IASetIndexBuffer(this->indexBuffer, DXGI_FORMAT_R32_UINT, 0);
-	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	CONTEXT->VSSetShader(this->loadingVertexShader, NULL, 0);
 	CONTEXT->PSSetShader(this->loadingPixelShader, NULL, 0);
 	CONTEXT->PSSetSamplers(0, 1, &this->sampler);
@@ -424,7 +427,6 @@ void Renderer::LoadingScreen()
 
 	if(this->loadTexture)
 		CONTEXT->PSSetShaderResources(0, 1, &this->loadTexture->GetShaderView());
-
 
 	Graphics::SetBackbufferAsTarget();
 

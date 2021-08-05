@@ -61,9 +61,6 @@ void Graphics::SetUpDevice()
 
 	hr = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags, directXfeature, 1, D3D11_SDK_VERSION,
 		&swapDesc, &this->swapChain, &this->device, nullptr, &this->context);
-//#ifdef _DEBUG
-	std::cout << "[THREAD/GRAPHICS]Device has been setup.\n";
-//#endif
 	this->setup_device = false;
 }
 
@@ -82,9 +79,6 @@ void Graphics::SetUpBackBuffer()
 	hr = DEVICE->CreateRenderTargetView(backBuffer, NULL, &this->backBufferView);
 	backBuffer->Release();
 	this->setup_bBuffer = false;
-//#ifdef _DEBUG
-	std::cout << "[THREAD/GRAPHICS]Backbuffer has been setup.\n";
-//#endif
 }
 
 void Graphics::ClearScreen()
@@ -115,7 +109,7 @@ UINT Graphics::GetHeight()
 
 void Graphics::SetBackbufferAsTarget()
 {
-	if(GRAPHICS->backBufferView)
+	if(Graphics::instance->context != nullptr)
 		CONTEXT->OMSetRenderTargets(1, &GRAPHICS->backBufferView, nullptr);
 }
 
@@ -158,6 +152,7 @@ ID3D11Device*& Graphics::GetDevice()
 {
 	return GRAPHICS->device;
 }
+
 
 ID3D11DeviceContext*& Graphics::GetContext()
 {

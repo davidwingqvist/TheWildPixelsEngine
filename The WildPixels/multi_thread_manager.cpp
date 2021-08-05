@@ -11,8 +11,10 @@ MultiThreader* MultiThreader::instance = nullptr;
 // Shared mutex
 std::mutex mutx;
 
+#ifdef _DEBUG
 // Shared mutex for io print.
 std::mutex io_mtx;
+#endif
 
 /*
 	Main function for Pooled threads.
@@ -20,6 +22,7 @@ std::mutex io_mtx;
 void PooledThread(unsigned int id)
 {
 	MultiThreader::SetStatus(thread_running, id);
+
 
 #ifdef _DEBUG
 	io_mtx.lock();
@@ -31,6 +34,7 @@ void PooledThread(unsigned int id)
 	bool active = true;
 	while (active)
 	{
+
 		// Mutex protects Job list, Only one job per thread.
 		mutx.lock();
 
@@ -40,11 +44,10 @@ void PooledThread(unsigned int id)
 		{
 
 #ifdef _DEBUG
-			/*
-			io_mtx.lock();
-			std::cout << "Found a Job!\n";
-			io_mtx.unlock();
-			*/
+			
+			//io_mtx.lock();
+			//std::cout << "Found a Job!\n";
+			//io_mtx.unlock();
 #endif
 
 			MultiThreader::PopJob();

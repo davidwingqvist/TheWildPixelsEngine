@@ -7,7 +7,7 @@
 #include <queue>
 
 // Scans computer and returns available cores for threads to run on.
-const int availableCores = std::thread::hardware_concurrency();
+const int availableCores = std::thread::hardware_concurrency() - 1;
 
 constexpr unsigned int thread_error = -1;
 constexpr unsigned int thread_free = 0;

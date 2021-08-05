@@ -18,12 +18,21 @@ void Engine::RedirectIoToConsole()
 // --------DEFERRED--------
 void Engine::RenderDeferred()
 {
+	double begin;
+	double end;
+
+	begin = omp_get_wtime();
 	Graphics::ClearScreen();
+	end = omp_get_wtime() - begin;
+	//std::cout << "Time: " << end << "\n";
 
 	this->renderer.PrepareGeometryPass();
 
+	
+	
 	if (this->currentCamera != nullptr)
 		this->currentCamera->Render();
+	
 
 	switch (this->currentState)
 	{
@@ -31,12 +40,19 @@ void Engine::RenderDeferred()
 		break;
 	case GameState::INGAME:
 
+		
 		this->sceneHandler.RenderScene();
+		
+		
+		
 		this->renderer.UnbindGeometryPass();
-
-
+		
+		
+		
 		this->renderer.RenderLightPass();
 		this->renderer.UnbindLightPass();
+		
+		
 		break;
 	case GameState::INGAME_OPTIONS:
 		break;
@@ -47,7 +63,10 @@ void Engine::RenderDeferred()
 	default:
 		break;
 	}
+
+	
 	Graphics::Present();
+	
 }
 
 // ---------FORWARD----------
@@ -108,7 +127,8 @@ bool Engine::SetUpLoadingScreen(std::string&& filePath)
 		filePath = "Textures/buffercat.jpg";
 
 	this->hasLoadingScreen = this->renderer.InitializeLoadingScreen(filePath);
-	return true;
+
+	return this->hasLoadingScreen;
 }
 
 bool Engine::SetCamera(Camera* cam)
@@ -142,6 +162,7 @@ const bool Engine::IsLoading() const
 
 void Engine::Render()
 {
+
 	switch (this->engineRenderType){
 	case RenderType::DEFERRED:
 		this->RenderDeferred();
@@ -152,6 +173,7 @@ void Engine::Render()
 	default:
 		break;
 	}
+	
 }
 
 void Engine::RenderLoading()
@@ -163,8 +185,6 @@ void Engine::RenderLoading()
 void Engine::SetLoadingStatus(const bool&& status)
 {
 	this->isLoading = status;
-	if (status == true)
-		THREAD_JOB(Engine, ClearResources);
 }
 
 SceneManager& Engine::SceneHandle()
@@ -181,6 +201,7 @@ bool Engine::HandleExceptionRendering()
 {
 	if (IsLoading())
 	{
+
 		Engine::RenderLoading();
 		Graphics::Present();
 		return true;

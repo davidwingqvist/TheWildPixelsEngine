@@ -1,5 +1,6 @@
 #pragma once
 #include "Window.h"
+#include <omp.h>
 #include "Renderer.h"
 #include "Graphics.h"
 #include "GameState.h"
@@ -91,7 +92,7 @@ public:
 	void Render();
 	void RenderLoading();
 
-	// If this is set to true, it will clear the cache stored in resource manager.
+	// Set the engine to render loading screen, remember to set to false when all loading is done.
 	void SetLoadingStatus(const bool&& status);
 
 	SceneManager& SceneHandle();
