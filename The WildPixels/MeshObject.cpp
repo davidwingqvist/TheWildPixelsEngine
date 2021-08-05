@@ -43,7 +43,7 @@ void MeshObject::CreateTexture(std::string &&filePath)
 
 void MeshObject::Render()
 {
-	if (this->mesh != nullptr)
+	if (this->mesh)
 	{
 		UINT offset = 0;
 		UINT stride = sizeof(Vertex);

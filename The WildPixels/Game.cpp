@@ -70,6 +70,14 @@ void Game::UpdateInGame()
 
 }
 
+void Game::LoadObjects()
+{
+	// Designed to take time.
+	for (int i = 1; i < 500; i++)
+	{
+		EDITSCENE.Add("clue_toy.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
+	}
+}
 /*
 	--------SCENE LOADS---------
 */
@@ -83,10 +91,12 @@ void Game::LoadMainMenu()
 	SceneHandle().AddScene();
 
 	// Designed to take time.
-	for (int i = 1; i < 100000; i++)
+	for (int i = 1; i < 500; i++)
 	{
 		EDITSCENE.Add("clue_toy.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
 	}
+
+	THREAD_JOB(Game, LoadObjects);
 
 	Camera* cam = new Camera();
 	cam->Preset();

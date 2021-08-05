@@ -341,3 +341,22 @@ std::string MultiThreader::GetTextureData(unsigned int index)
 	else
 		return "error";
 }
+
+const int MultiThreader::GetAmountOfJobs()
+{
+	switch (MULTITHREADER->type)
+	{
+	case ThreadType::POOL_LIFO:
+		return MULTITHREADER->jobs.size();
+		break;
+	case ThreadType::POOL_FIFO:
+		return MULTITHREADER->jobs_queue.size();
+		break;
+	default:
+
+		return 0;
+		break;
+	}
+
+	return 0;
+}

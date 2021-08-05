@@ -127,6 +127,8 @@ public:
 	static void StoreData(char* data, unsigned int index);
 
 	static std::string GetTextureData(unsigned int index); 
+
+	static const int GetAmountOfJobs();
 };
 
 #define THREAD_JOB(class_name, function_name) (MultiThreader::IsActive()) ? MultiThreader::InsertJob(std::bind(&class_name::function_name, &*this)) : class_name::function_name()
