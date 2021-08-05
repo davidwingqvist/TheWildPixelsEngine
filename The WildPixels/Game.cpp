@@ -83,7 +83,7 @@ void Game::LoadMainMenu()
 	SceneHandle().AddScene();
 
 	// Designed to take time.
-	for (int i = 1; i < 1000; i++)
+	for (int i = 1; i < 100000; i++)
 	{
 		EDITSCENE.Add("clue_toy.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
 	}

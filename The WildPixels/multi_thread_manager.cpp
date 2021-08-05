@@ -46,7 +46,7 @@ void PooledThread(unsigned int id)
 #ifdef _DEBUG
 			
 			//io_mtx.lock();
-			//std::cout << "Found a Job!\n";
+			std::cout << "Found a Job!\n";
 			//io_mtx.unlock();
 #endif
 

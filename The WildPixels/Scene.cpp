@@ -37,7 +37,9 @@ void Scene::Add(MeshObject* obj)
 void Scene::Add(std::string meshPath, std::string texture, DirectX::XMFLOAT3 position, DirectX::XMFLOAT3 rotation, DirectX::XMFLOAT3 scale)
 {
 	MeshObject* newObject = new MeshObject();
+
 	newObject->Create(meshPath, position, rotation, scale);
+
 	newObject->CreateTexture("Textures/" + texture);
 	this->objects.push_back(newObject);
 }

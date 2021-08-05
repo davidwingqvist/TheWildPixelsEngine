@@ -105,6 +105,7 @@ bool Engine::SetUp(HINSTANCE instance, UINT width, UINT height)
 	this->RedirectIoToConsole();
 //#endif
 
+	// If you don't want multithreading, simply put "amount" to 0.
 	MultiThreader::Init(1, ThreadType::POOL_FIFO);
 	ResourceManager::Initialize();
 
