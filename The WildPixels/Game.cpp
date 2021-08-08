@@ -94,7 +94,7 @@ void Game::LoadMainMenu()
 	// Designed to take time.
 	for (int i = 1; i < 500; i++)
 	{
-		EDITSCENE.Add("clue_toy.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
+		EDITSCENE.Add("BlockyAK47.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
 	}
 
 	THREAD_JOB(Game, LoadObjects);

@@ -175,6 +175,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshObject.h" />
     <ClInclude Include="multi_thread_manager.h" />
+    <ClInclude Include="OptionsManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ReadFromObj.h" />
     <ClInclude Include="Renderer.h" />

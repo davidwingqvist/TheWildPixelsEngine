@@ -363,6 +363,7 @@ void Renderer::PrepareGeometryPass()
 	CONTEXT->OMSetRenderTargets(BUFFERS, this->renderTargetViews, this->depthStencilView);
 	CONTEXT->PSSetSamplers(0, 1, &this->sampler);
 	CONTEXT->RSSetViewports(1, &this->viewPort);
+	CONTEXT->RSSetState(this->rastState);
 
 	/*
 		Later on Draw
