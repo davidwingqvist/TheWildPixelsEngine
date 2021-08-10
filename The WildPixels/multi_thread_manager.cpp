@@ -262,7 +262,7 @@ std::function<void()> MultiThreader::CheckJob()
 	case ThreadType::POOL_LIFO:
 		if ((int)MULTITHREADER->jobs.size() > 0)
 		{
-			return MULTITHREADER->jobs[MULTITHREADER->jobs.size() - 1];
+			return MULTITHREADER->jobs[(int)MULTITHREADER->jobs.size() - 1];
 		}
 		else
 			return nullptr;
@@ -347,10 +347,10 @@ const int MultiThreader::GetAmountOfJobs()
 	switch (MULTITHREADER->type)
 	{
 	case ThreadType::POOL_LIFO:
-		return MULTITHREADER->jobs.size();
+		return (int)MULTITHREADER->jobs.size();
 		break;
 	case ThreadType::POOL_FIFO:
-		return MULTITHREADER->jobs_queue.size();
+		return (int)MULTITHREADER->jobs_queue.size();
 		break;
 	default:
 
