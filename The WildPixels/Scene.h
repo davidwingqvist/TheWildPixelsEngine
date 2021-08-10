@@ -1,11 +1,14 @@
 #pragma once
 #include <vector>
 #include "MeshObject.h"
+#include "Light.h"
 class Scene
 {
 private:
 
 	std::vector<MeshObject*> objects;
+
+	Light* sceneLights;
 
 	void RenderInternal();
 
@@ -21,6 +24,6 @@ public:
 
 	MeshObject* GetObj(unsigned int index);
 	void Render();
-
+	void RenderLights();
 };
 

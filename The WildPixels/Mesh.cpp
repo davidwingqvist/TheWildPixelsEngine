@@ -11,7 +11,7 @@ Mesh::Mesh(std::string&& filePath)
 	std::vector<Vertex> vertices = ReadFromObj(filePath, this->nrOfVertices);
 
 	// Mesh wasn't found. Break.
-	if ((int)vertices.size() < 0)
+	if ((int)vertices.size() <= 0)
 		return;
 
 	D3D11_BUFFER_DESC bDesc;

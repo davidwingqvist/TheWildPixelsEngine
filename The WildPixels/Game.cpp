@@ -74,9 +74,9 @@ void Game::UpdateInGame()
 void Game::LoadObjects()
 {
 	// Designed to take time.
-	for (int i = 1; i < 500; i++)
+	for (int i = 1; i < 5000; i++)
 	{
-		EDITSCENE.Add("clue_toy.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
+		EDITSCENE.Add("BlockyAK47.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
 	}
 }
 /*
@@ -85,6 +85,7 @@ void Game::LoadObjects()
 void Game::LoadMainMenu()
 {
 	SetLoadingStatus(true);
+	WindowText("Loading...");
 	this->player = new Player();
 	Engine::SetPlayer(this->player);
 	
@@ -92,7 +93,7 @@ void Game::LoadMainMenu()
 	SceneHandle().AddScene();
 
 	// Designed to take time.
-	for (int i = 1; i < 500; i++)
+	for (int i = 1; i < 5000; i++)
 	{
 		EDITSCENE.Add("BlockyAK47.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
 	}
@@ -108,6 +109,7 @@ void Game::LoadMainMenu()
 	std::cout << "[THREAD/GAME]Loaded Main Menu..." << "\n";
 //#endif
 
+	WindowText("DONE!");
 	SetLoadingStatus(false);
 }
 

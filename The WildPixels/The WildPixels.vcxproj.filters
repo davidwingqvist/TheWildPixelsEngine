@@ -82,6 +82,9 @@
     <Filter Include="Engine\Options">
       <UniqueIdentifier>{b523356e-473b-42f3-b7c2-cc8a48d7c5c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Light">
+      <UniqueIdentifier>{c06c3309-8e79-4679-bfc2-0508c132460d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -143,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="InputHandler.cpp">
       <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Engine\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="OptionsManager.h">
       <Filter>Engine\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Engine\Light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

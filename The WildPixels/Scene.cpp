@@ -17,7 +17,9 @@ void Scene::RenderInternal()
 
 Scene::Scene()
 {
+	this->sceneLights = new Light();
 
+	this->sceneLights->Setup();
 }
 
 Scene::~Scene()
@@ -27,6 +29,9 @@ Scene::~Scene()
 		delete this->objects[(int)this->objects.size() - 1];
 		this->objects.pop_back();
 	}
+
+	if (this->sceneLights)
+		delete this->sceneLights;
 }
 
 void Scene::Add(MeshObject* obj)
@@ -36,11 +41,12 @@ void Scene::Add(MeshObject* obj)
 
 void Scene::Add(std::string meshPath, std::string texture, DirectX::XMFLOAT3 position, DirectX::XMFLOAT3 rotation, DirectX::XMFLOAT3 scale)
 {
+
 	MeshObject* newObject = new MeshObject();
 
 	newObject->Create(meshPath, position, rotation, scale);
-
 	newObject->CreateTexture("Textures/" + texture);
+
 	this->objects.push_back(newObject);
 }
 
@@ -52,4 +58,8 @@ MeshObject* Scene::GetObj(unsigned int index)
 void Scene::Render()
 {
 	this->RenderInternal();
+}
+
+void Scene::RenderLights()
+{
 }

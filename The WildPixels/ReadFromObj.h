@@ -167,9 +167,11 @@ static std::vector<Vertex> ReadFromObj(std::string filePath, int & vertex)
 		Vertex newVertex(position[pos], texCoord[uv], normal[norm]);
 
 		// If debug is needed
+		/*
 		writer << "Pos: x: " << newVertex.pos.x << " y: " << newVertex.pos.y << " z: " << newVertex.pos.z << " | UV: x:" <<
 			newVertex.uv.x << " y: " << newVertex.uv.y << " | Normal: x:" <<
 			newVertex.normal.x << " y: " <<newVertex.normal.y << " z: " <<  newVertex.normal.z << "\n";
+		*/
 		vertexVector.push_back(newVertex);
 	}
 

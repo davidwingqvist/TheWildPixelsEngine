@@ -46,3 +46,31 @@ struct MatrixCompact
 {
 	DirectX::XMFLOAT4X4 transform;
 };
+
+struct LightStruct
+{
+	DirectX::XMFLOAT4 pos;
+	DirectX::XMFLOAT4 direction;
+	DirectX::XMFLOAT4 attentuation;
+};
+
+struct LightProperties
+{
+	DirectX::XMFLOAT4 ambient;
+	DirectX::XMFLOAT4 specular;
+	DirectX::XMFLOAT4 diffuse;
+
+	LightProperties(float amb, float spec, float diff)
+	{
+		this->ambient = { amb, amb, amb, amb };
+		this->specular = { spec, spec, spec, spec };
+		this->diffuse = { diff, diff, diff, diff };
+	}
+
+	LightProperties(DirectX::XMFLOAT4 amb, DirectX::XMFLOAT4 spec, DirectX::XMFLOAT4 diff)
+	{
+		this->ambient = amb;
+		this->specular = spec;
+		this->diffuse = diff;
+	}
+};

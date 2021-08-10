@@ -50,4 +50,5 @@ public:
 	---Cool defines---
 */
 
+// Set the window header text to input parameter text.
 #define WindowText(text) SetWindowTextA(Graphics::GetWindow(), text)
