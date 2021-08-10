@@ -81,7 +81,7 @@ static std::vector<Vertex> ReadFromObj(std::string filePath, int & vertex)
 	std::fstream reader;
 	std::fstream writer;
 
-	writer.open("objectInfo.txt", std::fstream::out);
+	
 
 	reader.open(filePath, std::fstream::in);// Reads only from file
 	if (!reader.is_open()) // return an error vector if file can't open
@@ -168,9 +168,12 @@ static std::vector<Vertex> ReadFromObj(std::string filePath, int & vertex)
 
 		// If debug is needed
 		/*
+		writer.open("objectInfo.txt", std::fstream::out);
 		writer << "Pos: x: " << newVertex.pos.x << " y: " << newVertex.pos.y << " z: " << newVertex.pos.z << " | UV: x:" <<
 			newVertex.uv.x << " y: " << newVertex.uv.y << " | Normal: x:" <<
 			newVertex.normal.x << " y: " <<newVertex.normal.y << " z: " <<  newVertex.normal.z << "\n";
+
+		writer.close();
 		*/
 		vertexVector.push_back(newVertex);
 	}
@@ -178,7 +181,7 @@ static std::vector<Vertex> ReadFromObj(std::string filePath, int & vertex)
 	vertex += (int)faces.size();
 
 	reader.close();
-	writer.close();
+	
 
 	return vertexVector;
 }
