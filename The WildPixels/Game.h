@@ -31,6 +31,5 @@ public:
 	bool StartUp(HINSTANCE instance, UINT width, UINT height);
 	bool Update(float& dt);
 	bool HandleInput();
-	void LoadObjects();
 };
 

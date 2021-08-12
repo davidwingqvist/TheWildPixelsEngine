@@ -13,8 +13,6 @@ private:
 
     Texture* texture;
     Mesh* mesh;
-
-    bool readyForRender;
 public:
 
     MeshObject();

@@ -71,14 +71,6 @@ void Game::UpdateInGame()
 
 }
 
-void Game::LoadObjects()
-{
-	// Designed to take time.
-	for (int i = 1; i < 5000; i++)
-	{
-		EDITSCENE.Add("BlockyAK47.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
-	}
-}
 /*
 	--------SCENE LOADS---------
 */
@@ -97,8 +89,6 @@ void Game::LoadMainMenu()
 	{
 		EDITSCENE.Add("BlockyAK47.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
 	}
-
-	THREAD_JOB(Game, LoadObjects);
 
 	Camera* cam = new Camera();
 	cam->Preset();
