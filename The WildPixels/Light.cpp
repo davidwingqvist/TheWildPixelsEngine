@@ -107,12 +107,18 @@ void Light::check_buffers()
 
 void Light::Cleanup()
 {
-
+	ID3D11ShaderResourceView* nullShader = nullptr;
+	ID3D11Buffer* nullBuffer = nullptr;
+	CONTEXT->PSSetShaderResources(10, 1, &nullShader);
+	CONTEXT->PSSetShaderResources(11, 1, &nullShader);
+	CONTEXT->PSSetConstantBuffers(10, 1, &nullBuffer);
 }
 
 void Light::InternalRender()
 {
-
+	CONTEXT->PSSetShaderResources(10, 1, &this->light_structs_view);
+	CONTEXT->PSSetShaderResources(11, 1, &this->light_props_view);
+	CONTEXT->PSSetConstantBuffers(10, 1, &this->light_rules_buffer);
 }
 
 void Light::UpdateRules()

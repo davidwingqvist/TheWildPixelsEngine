@@ -42,7 +42,7 @@ void PooledThread(unsigned int id)
 		std::function<void()> currentJob = MultiThreader::CheckJob();
 		if (currentJob != nullptr)
 		{
-
+			MultiThreader::SetStatus(thread_working, id);
 #ifdef _DEBUG
 			
 			//io_mtx.lock();
@@ -55,6 +55,8 @@ void PooledThread(unsigned int id)
 
 			// Runs the currentJob.
 			currentJob();
+
+			MultiThreader::SetStatus(thread_running, id);
 		}
 		else
 		{
@@ -228,10 +230,14 @@ void MultiThreader::Update()
 
 const bool MultiThreader::HasActiveThread()
 {
-	if (MULTITHREADER->activeThreads > 0)
-		return true;
-	else
-		return false;
+	for (int i = 0; i < availableCores; i++)
+	{
+		int status = MULTITHREADER->GetStatus(i);
+		if (status == thread_working)
+			return true;
+	}
+
+	return false;
 }
 
 const int MultiThreader::GetStatus(int index)

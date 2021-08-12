@@ -7,6 +7,7 @@ MeshObject::MeshObject()
 {
 	this->texture = nullptr;
 	this->mesh = nullptr;
+	this->readyForRender = false;
 }
 
 MeshObject::~MeshObject()
@@ -22,7 +23,10 @@ void MeshObject::Create(std::string meshPath, DirectX::XMFLOAT3 position, Direct
 	{
 		this->mesh = new Mesh(std::string("Models/" + meshPath));
 		ADD_RESOURCE(mesh, "Models/" + meshPath);
+		readyForRender = true;
 	}
+	else
+		readyForRender = true;
 }
 
 void MeshObject::CreateTexture(std::string &&filePath)
@@ -43,7 +47,7 @@ void MeshObject::CreateTexture(std::string &&filePath)
 
 void MeshObject::Render()
 {
-	if (this->mesh)
+	if (mesh)
 	{
 		UINT offset = 0;
 		UINT stride = sizeof(Vertex);

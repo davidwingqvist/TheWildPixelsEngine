@@ -51,7 +51,7 @@ struct LightStruct
 {
 	DirectX::XMFLOAT4 pos;
 	DirectX::XMFLOAT4 direction;
-	DirectX::XMFLOAT4 attentuation;
+	DirectX::XMFLOAT4 attenuation;
 };
 
 struct LightProperties

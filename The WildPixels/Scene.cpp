@@ -62,4 +62,6 @@ void Scene::Render()
 
 void Scene::RenderLights()
 {
+	if (this->sceneLights)
+		this->sceneLights->Render();
 }

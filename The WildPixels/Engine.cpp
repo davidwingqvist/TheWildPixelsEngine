@@ -43,12 +43,10 @@ void Engine::RenderDeferred()
 		
 		this->sceneHandler.RenderScene();
 		
-		
-		
 		this->renderer.UnbindGeometryPass();
 		
 		
-		
+		this->sceneHandler.RenderLights();
 		this->renderer.RenderLightPass();
 		this->renderer.UnbindLightPass();
 		
@@ -163,8 +161,8 @@ const bool Engine::IsLoading() const
 
 void Engine::Render()
 {
-
-	switch (this->engineRenderType){
+	// Render only when not loading.
+	switch (this->engineRenderType) {
 	case RenderType::DEFERRED:
 		this->RenderDeferred();
 		break;
@@ -200,9 +198,8 @@ void Engine::RegisterMesh(MeshObject* mesh)
 
 bool Engine::HandleExceptionRendering()
 {
-	if (IsLoading())
+	if (IsLoading() && MultiThreader::HasActiveThread())
 	{
-
 		Engine::RenderLoading();
 		Graphics::Present();
 		return true;

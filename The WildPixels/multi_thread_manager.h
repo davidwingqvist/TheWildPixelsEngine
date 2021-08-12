@@ -11,6 +11,7 @@ const int availableCores = std::thread::hardware_concurrency() - 1;
 
 constexpr unsigned int thread_error = -1;
 constexpr unsigned int thread_free = 0;
+constexpr unsigned int thread_working = 3;
 constexpr unsigned int thread_running = 1;
 constexpr unsigned int thread_done = 2;
 

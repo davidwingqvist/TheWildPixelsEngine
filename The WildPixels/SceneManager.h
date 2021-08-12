@@ -16,5 +16,6 @@ public:
 	void SwitchScene(int index);
 	void RemoveAllScenes();
 	void RenderScene();
+	void RenderLights();
 };
 

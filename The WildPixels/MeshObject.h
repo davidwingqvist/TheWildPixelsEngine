@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Structures.h"
 #include <string>
+#include <memory>
 #include "stb_image.h"
 #include "ResourceManager.h"
 
@@ -13,6 +14,7 @@ private:
     Texture* texture;
     Mesh* mesh;
 
+    bool readyForRender;
 public:
 
     MeshObject();
