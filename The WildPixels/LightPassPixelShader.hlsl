@@ -61,7 +61,7 @@ float4 main(VSOut input) : SV_TARGET
         float4 color = { 0.0f, 0.0f, 0.0f, 0.0f };
         for (int i = 0; i < amount; i++)
         {
-            color = buffers.ambientTexture * LightProperties[i].ambient  * 0.5f;
+            color = float4(0.2f, 0.2f, 1.0f, 0.5f) * buffers.ambientTexture;
         }
 
         return color;

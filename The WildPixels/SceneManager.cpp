@@ -48,8 +48,3 @@ void SceneManager::RenderScene()
 		this->scenes[currentScene]->Render();
 	}
 }
-
-void SceneManager::RenderLights()
-{
-	this->scenes[this->currentScene]->RenderLights();
-}

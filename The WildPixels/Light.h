@@ -29,12 +29,13 @@ private:
 	// check if any of the buffers are created and destory them.
 	void check_buffers();
 
-	// Release any buffers or resources from the pipeline.
-	void Cleanup();
+
 	void InternalRender();
 	void UpdateRules();
+	
+	void thread_setup_light_buffers();
 
-	bool update;
+	bool update, internalUpdate;
 
 public:
 
@@ -53,4 +54,7 @@ public:
 	void AddLight(LightStruct light_struct);
 
 	void Render();
+
+	// Release any buffers or resources from the pipeline.
+	void Cleanup();
 };

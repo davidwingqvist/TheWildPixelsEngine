@@ -46,9 +46,10 @@ void Engine::RenderDeferred()
 		this->renderer.UnbindGeometryPass();
 		
 		
-		this->sceneHandler.RenderLights();
+		EDITSCENE.GetLight()->Render();
 		this->renderer.RenderLightPass();
 		this->renderer.UnbindLightPass();
+		EDITSCENE.GetLight()->Cleanup();
 		
 		
 		break;
@@ -198,7 +199,7 @@ void Engine::RegisterMesh(MeshObject* mesh)
 
 bool Engine::HandleExceptionRendering()
 {
-	if (IsLoading() && MultiThreader::HasActiveThread())
+	if (IsLoading())
 	{
 		Engine::RenderLoading();
 		Graphics::Present();

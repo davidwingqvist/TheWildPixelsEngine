@@ -50,18 +50,27 @@ void Scene::Add(std::string meshPath, std::string texture, DirectX::XMFLOAT3 pos
 	this->objects.push_back(newObject);
 }
 
+void Scene::AddLight(LightStruct Ls, LightProperties Lp)
+{
+	this->sceneLights->AddLight(Ls, Lp);
+}
+
+void Scene::AddLight(LightStruct Ls)
+{
+	this->sceneLights->AddLight(Ls);
+}
+
 MeshObject* Scene::GetObj(unsigned int index)
 {
 	return this->objects[index];
 }
 
+Light* Scene::GetLight()
+{
+	return this->sceneLights;
+}
+
 void Scene::Render()
 {
 	this->RenderInternal();
-}
-
-void Scene::RenderLights()
-{
-	if (this->sceneLights)
-		this->sceneLights->Render();
 }

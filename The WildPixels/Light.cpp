@@ -1,5 +1,6 @@
 #include "Light.h"
 #include "Graphics.h"
+#include "multi_thread_manager.h"
 
 bool Light::setup_light_rules()
 {
@@ -89,6 +90,9 @@ bool Light::setup_light_buffers()
 	else
 		return false;
 
+	this->update = false;
+	this->internalUpdate = true;
+
 	return true;
 }
 
@@ -123,10 +127,16 @@ void Light::InternalRender()
 
 void Light::UpdateRules()
 {
+	this->light_rules.package = { (float)this->light_structs.size(), this->light_rules.package.y, this->light_rules.package.z, this->light_rules.package.w };
 	D3D11_MAPPED_SUBRESOURCE mappedResource = {};
 	Graphics::GetContext()->Map(this->light_rules_buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	memcpy(mappedResource.pData, &this->light_rules, sizeof(general_light_rules));
 	Graphics::GetContext()->Unmap(this->light_rules_buffer, 0);
+}
+
+void Light::thread_setup_light_buffers()
+{
+	this->update = !this->setup_light_buffers();
 }
 
 Light::Light()
@@ -138,6 +148,7 @@ Light::Light()
 	this->light_structs_view = nullptr;
 	this->light_props_view = nullptr;
 	this->update = false;
+	this->internalUpdate = false;
 }
 
 Light::~Light()
@@ -188,11 +199,19 @@ void Light::AddLight(LightStruct light_struct)
 
 void Light::Render()
 {
+	if (this->internalUpdate)
+	{
+		this->internalUpdate = false;
+		this->UpdateRules();
+	}
+
 	if (this->update)
 	{
-		setup_light_buffers();
-		this->update = false;
+		THREAD_JOB(Light, thread_setup_light_buffers);
+		//setup_light_buffers();
 	}
-	this->InternalRender();
-	this->Cleanup();
+	else if (!this->update)
+	{
+		this->InternalRender();
+	}
 }

@@ -21,9 +21,11 @@ public:
 	void Add(std::string meshPath = "BlockyAK47.obj", std::string texture = "", 
 		DirectX::XMFLOAT3 position = { 0, 0, 0 }, DirectX::XMFLOAT3 rotation = { 0, 0, 0 },
 		DirectX::XMFLOAT3 scale = { 1.0f, 1.0f, 1.0f });
+	void AddLight(LightStruct Ls, LightProperties Lp);
+	void AddLight(LightStruct Ls);
 
 	MeshObject* GetObj(unsigned int index);
+	Light* GetLight();
 	void Render();
-	void RenderLights();
 };
 
