@@ -2,6 +2,11 @@ Texture2D ambientTexture : register(t0);
 Texture2D normalTexture : register(t1);
 SamplerState Asampler : register(s0);
 
+
+/*
+    Light caluclations
+*/
+void doDirectionalLight(inout float4 color, int arrSpot);
 struct Light
 {
     float4 position;
@@ -48,6 +53,8 @@ GBuffers CreateBuffers(float2 uv)
     return buffs;
 }
 
+
+
 float4 main(VSOut input) : SV_TARGET
 {
     GBuffers buffers = CreateBuffers(input.uv);
@@ -58,10 +65,24 @@ float4 main(VSOut input) : SV_TARGET
     }
     else // Calculate lights.
     {
-        float4 color = { 0.0f, 0.0f, 0.0f, 0.0f };
+        float4 color = buffers.ambientTexture;
         for (int i = 0; i < amount; i++)
         {
-            color = float4(0.2f, 0.2f, 1.0f, 0.5f) * buffers.ambientTexture;
+            switch (LightStructs[i].position.w)
+            {
+                case 0:
+                    doDirectionalLight(color, i);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                default:
+                // default is just returning normal ambient color.
+                    color = buffers.ambientTexture;
+                    return color;
+                    break;
+            }
         }
 
         return color;
@@ -69,4 +90,9 @@ float4 main(VSOut input) : SV_TARGET
     
     // Failed somewhere so we just return 1.0fs;
     return float4(1.0f, 1.0f, 1.0f, 1.0f);
+}
+
+void doDirectionalLight(inout float4 color, int arrSpot)
+{
+    
 }

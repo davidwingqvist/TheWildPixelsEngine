@@ -47,6 +47,11 @@ struct MatrixCompact
 	DirectX::XMFLOAT4X4 transform;
 };
 
+/*
+	Pos.w == type
+	direction.w == ?
+	attenuation.w = ?
+*/
 struct LightStruct
 {
 	DirectX::XMFLOAT4 pos;
