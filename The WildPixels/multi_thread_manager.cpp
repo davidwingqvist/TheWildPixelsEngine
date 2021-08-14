@@ -350,6 +350,10 @@ std::string MultiThreader::GetTextureData(unsigned int index)
 
 const int MultiThreader::GetAmountOfJobs()
 {
+	// Used for #define.
+	if (!MULTITHREADER->IsActive())
+		return 1;
+
 	switch (MULTITHREADER->type)
 	{
 	case ThreadType::POOL_LIFO:
@@ -359,7 +363,6 @@ const int MultiThreader::GetAmountOfJobs()
 		return (int)MULTITHREADER->jobs_queue.size();
 		break;
 	default:
-
 		return 0;
 		break;
 	}

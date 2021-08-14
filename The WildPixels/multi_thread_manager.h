@@ -132,5 +132,20 @@ public:
 	static const int GetAmountOfJobs();
 };
 
+/*
+	Create a job for the pooled threads, 
+	if threads are not activated then this job will run on main thread.
+*/
 #define THREAD_JOB(class_name, function_name) (MultiThreader::IsActive()) ? MultiThreader::InsertJob(std::bind(&class_name::function_name, &*this)) : class_name::function_name()
+
+/*
+	Create a job only if no other jobs are present in the queue.
+	If jobs are present then this will run on main thread.
+*/
+#define THREAD_PRIO_JOB(class_name, function_name) (MultiThreader::GetAmountOfJobs() > 0) ? class_name::function_name : MultiThreader::InsertJob(std::bind(&class_name::function_name, &*this))
+
+/*
+	Create a job for the pooled threads,
+	This define is suited for singleton functions inside singletons.
+*/
 #define THREAD_SINGLETON_JOB(class_name, function_name) MultiThreader::InsertJob(std::bind(&class_name::function_name, &*class_name::instance))

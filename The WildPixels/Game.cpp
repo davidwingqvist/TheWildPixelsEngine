@@ -52,7 +52,7 @@ void Game::HandleInGameInput()
 
 	if (PRESSED(VK_LBUTTON))
 	{
-		GetCamera()->GetParts().position.y += 3.0f * Graphics::deltaTime;
+		GetCamera()->GetParts().position.y += 3000.0f * Graphics::deltaTime;
 		GetCamera()->UpdateDOOM();
 	}
 }
@@ -136,6 +136,7 @@ bool Game::StartUp(HINSTANCE instance, UINT width, UINT height)
 	//Engine::ClearResources();
 	THREAD_JOB(Game, LoadMainMenu);
 	//LoadMainMenu();
+	THREAD_PRIO_JOB(Game, LoadMainMenu);
 
     return true;
 }

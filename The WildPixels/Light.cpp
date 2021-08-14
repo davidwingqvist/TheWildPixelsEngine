@@ -185,12 +185,13 @@ void Light::SetLightDistance(const float&& dist)
 void Light::AddLight(LightStruct light_struct, LightProperties light_props)
 {
 	this->update = true;
+	this->internalUpdate = true;
 }
 
 void Light::AddLight(LightStruct light_struct)
 {
 	this->update = true;
-
+	this->internalUpdate = true;
 	this->light_structs.push_back(light_struct);
 
 	LightProperties default_properites(1.0f, 1.0f, 1.0f);
@@ -206,8 +207,7 @@ void Light::Render()
 	}
 	if (this->update)
 	{
-		Light::thread_setup_light_buffers();
-		//setup_light_buffers();
+		thread_setup_light_buffers();
 	}
 	else if (!this->update && !this->internalUpdate)
 	{
