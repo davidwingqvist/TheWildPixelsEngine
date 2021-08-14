@@ -136,7 +136,6 @@ bool Game::StartUp(HINSTANCE instance, UINT width, UINT height)
 	//Engine::ClearResources();
 	THREAD_JOB(Game, LoadMainMenu);
 	//LoadMainMenu();
-	THREAD_PRIO_JOB(Game, LoadMainMenu);
 
     return true;
 }

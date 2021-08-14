@@ -28,7 +28,7 @@
 				either queue up the function or run it on the main thread depending on the situation.
 
 				Before closing down the application please remember to call the Destroy() function.
-				This will delete any allocated memory and as well handle any rogue threads still running.
+				This will delete any allocated memory and handle any rogue threads still running.
 */
 
 // Scans computer and returns available cores for threads to run on.
@@ -157,7 +157,7 @@ public:
 	Create a job only if no other jobs are present in the queue.
 	If jobs are present then this will run on main thread.
 */
-#define THREAD_PRIO_JOB(class_name, function_name) (MultiThreader::GetAmountOfJobs() > 0) ? class_name::function_name : MultiThreader::InsertJob(std::bind(&class_name::function_name, &*this))
+#define THREAD_PRIO_JOB(class_name, function_name) (MultiThreader::GetAmountOfJobs() > 0) ? class_name::function_name() : MultiThreader::InsertJob(std::bind(&class_name::function_name, &*this))
 
 /*
 	Create a job for the pooled threads,
