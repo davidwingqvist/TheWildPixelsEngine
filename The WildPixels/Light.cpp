@@ -201,16 +201,15 @@ void Light::Render()
 {
 	if (this->internalUpdate)
 	{
-		this->internalUpdate = false;
 		this->UpdateRules();
+		this->internalUpdate = false;
 	}
-
 	if (this->update)
 	{
-		THREAD_JOB(Light, thread_setup_light_buffers);
+		Light::thread_setup_light_buffers();
 		//setup_light_buffers();
 	}
-	else if (!this->update)
+	else if (!this->update && !this->internalUpdate)
 	{
 		this->InternalRender();
 	}

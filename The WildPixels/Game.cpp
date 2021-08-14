@@ -83,10 +83,11 @@ void Game::LoadMainMenu()
 	SceneHandle().RemoveAllScenes();
 	SceneHandle().AddScene();
 
+	EDITSCENE.Add("geo_terrain10x10.obj");
 	// Designed to take time.
 	for (int i = 1; i < 5000; i++)
 	{
-		EDITSCENE.Add("BlockyAK47.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
+		//EDITSCENE.Add("BlockyAK47.obj", "", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
 	}
 
 	LightStruct L;
