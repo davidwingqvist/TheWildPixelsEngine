@@ -7,6 +7,7 @@ SamplerState Asampler : register(s0);
     Light caluclations
 */
 void doDirectionalLight(inout float4 color, int arrSpot);
+
 struct Light
 {
     float4 position;
