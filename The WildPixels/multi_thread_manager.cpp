@@ -121,6 +121,7 @@ void MultiThreader::Destroy()
 
 	for (int i = 0; i < (int)MULTITHREADER->threads.size(); i++)
 	{
+		// Join the threads or simply detach it and get rid of it.
 		if (MULTITHREADER->threads[i].joinable())
 			MULTITHREADER->threads[i].join();
 		else
@@ -324,28 +325,6 @@ void MultiThreader::InsertJob(std::function<void()> job)
 bool MultiThreader::IsActive()
 {
 	return MULTITHREADER->isActive;
-}
-
-void MultiThreader::StoreData(char* data, unsigned int index)
-{
-	if (index >= 0 && index < (unsigned int)availableCores)
-	{
-		char* data_pointer = data;
-		data = nullptr;
-		std::string newData(data_pointer);
-		delete data_pointer;
-		MULTITHREADER->texture_data.emplace(index, newData);
-	}
-}
-
-std::string MultiThreader::GetTextureData(unsigned int index)
-{
-	if (MULTITHREADER->statuses[index] == thread_done)
-	{
-		return MULTITHREADER->texture_data.at(index);
-	}
-	else
-		return "error";
 }
 
 const int MultiThreader::GetAmountOfJobs()

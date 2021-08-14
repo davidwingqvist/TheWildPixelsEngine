@@ -6,6 +6,31 @@
 #include <unordered_map>
 #include <queue>
 
+/*
+				-----------Documentation of Multithreading class-----------
+
+				1. This class at the time being is best used with pooling.
+				What is pooling? Pooling means that 1 or more threads are constantly
+				running in the background and waiting for commands.
+
+				------Pooling------
+				To start initialize pooling simple call upon MultiThreader::Init(x, y);
+				x - the amount of threads you want in the pool, this is recommended
+				to use the "availableCores" integer since it scans the computer and
+				returns the amount of available threads - 1 since the main thread
+				needs a free core.
+				y - the type of pooling, I recommend using the ThreadType::FIFO(First In First Out).
+
+				Defines are created for ease of use with multithreading. If you plan on
+				using threads on a function simple call THREAD_JOB or equivalent,
+				input THREAD_JOB(the class name, the class function) inside the specified class.
+				Some defines will check if any threads are active/free to use and
+				either queue up the function or run it on the main thread depending on the situation.
+
+				Before closing down the application please remember to call the Destroy() function.
+				This will delete any allocated memory and as well handle any rogue threads still running.
+*/
+
 // Scans computer and returns available cores for threads to run on.
 const int availableCores = std::thread::hardware_concurrency() - 1;
 
@@ -63,11 +88,6 @@ private:
 	bool isActive;
 
 	ThreadType type;
-	
-	/*
-		Internal storage for multithreader. unsigned int used for mapping which thread data came from.
-	*/
-	std::unordered_map<unsigned int, std::string>  texture_data;
 
 	/*
 	Start a pool of threads. To assign jobs to these threads please use StartPooled() function. Be sure to not assign more threads than
@@ -123,11 +143,6 @@ public:
 
 	// Used for Threads to check if multithreader is currently active. If not all pooled threads will shutdown.
 	static bool IsActive();
-
-	// Allows storage into an unordered_map with index indicating which thread emplaced it and the texture data placed within the keyed spot.
-	static void StoreData(char* data, unsigned int index);
-
-	static std::string GetTextureData(unsigned int index); 
 
 	static const int GetAmountOfJobs();
 };
