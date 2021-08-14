@@ -90,14 +90,6 @@ void Game::LoadMainMenu()
 		EDITSCENE.Add("BlockyAK47.obj", "Theunit.png", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
 	}
 
-	LightStruct L;
-	L.pos = { 0.0f, 0.0f, 0.0f, 0.0f };
-	L.direction = { 0.0f, -1.0f, 0.0f, 0.0f };
-	L.attenuation = { 1.0f, 1.0f, 1.0f, 1.0f };
-	EDITSCENE.AddLight(L);
-	EDITSCENE.AddLight(L);
-	EDITSCENE.AddLight(L);
-
 	Camera* cam = new Camera();
 	cam->Preset();
 	Engine::SetCamera(cam);

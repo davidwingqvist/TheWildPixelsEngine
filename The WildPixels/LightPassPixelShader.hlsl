@@ -1,12 +1,26 @@
 Texture2D ambientTexture : register(t0);
 Texture2D normalTexture : register(t1);
 SamplerState Asampler : register(s0);
+cbuffer CameraMatrices : register(b1)
+{
+    matrix viewMatrix;
+    matrix projectionMatrix;
+    
+    float3 camPos;
+    float pad;
+    float3 camRot;
+    float pad2;
+}
 
-
+struct GBuffers
+{
+    float4 ambientTexture;
+    float4 normalTexture;
+};
 /*
     Light caluclations
 */
-void doDirectionalLight(inout float4 color, int arrSpot);
+void doDirectionalLight(inout float4 color, GBuffers gBuffs, int arrSpot);
 
 struct Light
 {
@@ -38,11 +52,6 @@ struct VSOut
     float2 uv : TEXCOORD;
 };
 
-struct GBuffers
-{
-    float4 ambientTexture;
-    float4 normalTexture;
-};
 
 // Sample from the buffers.
 GBuffers CreateBuffers(float2 uv)
@@ -69,20 +78,24 @@ float4 main(VSOut input) : SV_TARGET
         float4 color = buffers.ambientTexture;
         for (int i = 0; i < amount; i++)
         {
-            switch (LightStructs[i].position.w)
+            // Range optimization calc.
+            if(length(camPos - LightStructs[i].position.xyz) <= range)
             {
-                case 0:
-                    doDirectionalLight(color, i);
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                default:
+                switch (LightStructs[i].position.w)
+                {
+                    case 0:
+                        doDirectionalLight(color, buffers, i);
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    default:
                 // default is just returning normal ambient color.
-                    color = buffers.ambientTexture;
-                    return color;
-                    break;
+                        color = buffers.ambientTexture;
+                        return color;
+                        break;
+                }
             }
         }
 
@@ -93,7 +106,32 @@ float4 main(VSOut input) : SV_TARGET
     return float4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
-void doDirectionalLight(inout float4 color, int arrSpot)
+void doDirectionalLight(inout float4 color, GBuffers gBuffs, int arrSpot)
 {
+    float3 normals = float3(0.0f, -1.0f, 0.0f);
+    float3 lightVec = -normalize(LightStructs[arrSpot].direction.xyz);
+
+    float4 diff = float4(0.1f, 0.1f, 0.2f, 0.35f);
+    float4 spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
+
+    float diffuseFactor = max(dot(lightVec, normals), 0.0f);
+
+    diff *= diffuseFactor * LightProperties[arrSpot].diffuse;
     
+    float4 finalReturn = 0;
+    if (diffuseFactor <= 0.f)
+    {
+        color = color * diff;
+        return;
+    }
+    else
+    {
+        float3 v = reflect(-lightVec, normals);
+        float3 toEye = normalize(camPos.xyz - float3(0.0f, 0.0f, 0.0f));
+        float specFactor = pow(max(dot(v, toEye), 0.0f), LightProperties[arrSpot].specular.w);
+
+        float4 matSpec = float4(LightProperties[arrSpot].specular.xyz, 1.0f);
+    }
+    
+    color = color * gBuffs.ambientTexture * diff + spec;
 }

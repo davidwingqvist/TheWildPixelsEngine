@@ -1,5 +1,15 @@
 SamplerState Ssampler : register(s0);
 Texture2D Ttexture : register(t0);
+cbuffer CameraMatrices : register(b1)
+{
+    matrix viewMatrix;
+    matrix projectionMatrix;
+    
+    float3 position;
+    float pad;
+    float3 rotation;
+    float pad2;
+}
 
 struct VSOut
 {

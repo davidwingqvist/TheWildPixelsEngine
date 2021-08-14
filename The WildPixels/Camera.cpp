@@ -59,6 +59,7 @@ void Camera::Preset()
 void Camera::Render()
 {
 	CONTEXT->VSSetConstantBuffers(1, 1, &this->cameraBuffer);
+	CONTEXT->PSSetConstantBuffers(1, 1, &this->cameraBuffer);
 }
 
 void Camera::Update(DirectX::XMFLOAT3 pos, DirectX::XMFLOAT3 lookAt)
