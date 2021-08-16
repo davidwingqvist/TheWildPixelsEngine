@@ -52,7 +52,7 @@ void Game::HandleInGameInput()
 
 	if (PRESSED(VK_LBUTTON))
 	{
-		GetCamera()->GetParts().position.y += 3000.0f * Graphics::deltaTime;
+		GetCamera()->GetParts().position.y += 300.0f * Graphics::deltaTime;
 		GetCamera()->UpdateDOOM();
 	}
 }
@@ -90,6 +90,9 @@ void Game::LoadMainMenu()
 		EDITSCENE.Add("BlockyAK47.obj", "Theunit.png", { (float)(rand() % i), (float)(rand() % i), (float)(rand() % i) }, { (float)(rand() % i),  (float)(rand() % i), (float)(rand() % i) });
 	}
 
+	//LightStruct L = {};
+	//EDITSCENE.AddLight(L);
+
 	Camera* cam = new Camera();
 	cam->Preset();
 	Engine::SetCamera(cam);
@@ -124,6 +127,7 @@ bool Game::StartUp(HINSTANCE instance, UINT width, UINT height)
 	Engine::SetRenderType(RenderType::DEFERRED);
 	
 	// Load in the main menu at the beginning of game.
+	Decal decal();
 
 	//Engine::ClearResources();
 	THREAD_JOB(Game, LoadMainMenu);

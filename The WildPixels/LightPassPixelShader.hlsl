@@ -111,12 +111,13 @@ void doDirectionalLight(inout float4 color, GBuffers gBuffs, int arrSpot)
     float3 normals = float3(0.0f, -1.0f, 0.0f);
     float3 lightVec = -normalize(LightStructs[arrSpot].direction.xyz);
 
-    float4 diff = float4(0.1f, 0.1f, 0.2f, 0.35f);
-    float4 spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
+    float4 diff = LightProperties[arrSpot].diffuse;
+    float4 spec = LightProperties[arrSpot].specular;
+    float4 amb = LightProperties[arrSpot].ambient;
 
     float diffuseFactor = max(dot(lightVec, normals), 0.0f);
 
-    diff *= diffuseFactor * LightProperties[arrSpot].diffuse;
+    diff *= diffuseFactor;
     
     float4 finalReturn = 0;
     if (diffuseFactor <= 0.f)
@@ -129,9 +130,7 @@ void doDirectionalLight(inout float4 color, GBuffers gBuffs, int arrSpot)
         float3 v = reflect(-lightVec, normals);
         float3 toEye = normalize(camPos.xyz - float3(0.0f, 0.0f, 0.0f));
         float specFactor = pow(max(dot(v, toEye), 0.0f), LightProperties[arrSpot].specular.w);
-
-        float4 matSpec = float4(LightProperties[arrSpot].specular.xyz, 1.0f);
     }
     
-    color = color * gBuffs.ambientTexture * diff + spec;
+    color = (color * gBuffs.ambientTexture * diff * amb) +spec;
 }

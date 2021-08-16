@@ -31,9 +31,6 @@
     <Filter Include="Engine\State">
       <UniqueIdentifier>{547fce42-2457-4e1f-ba6f-a69eb30ca19d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\RenderPasses">
-      <UniqueIdentifier>{ab18803c-213b-43db-8ae6-3b749bd60d2c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Scene">
       <UniqueIdentifier>{72a610c4-c421-4bfa-9c76-ea9456c0f235}</UniqueIdentifier>
     </Filter>
@@ -46,20 +43,11 @@
     <Filter Include="Engine\I/O">
       <UniqueIdentifier>{98e4f951-807d-4ff7-9166-6b457dba1e3b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\RenderPasses\Geometry Pass">
-      <UniqueIdentifier>{4f7da9dc-5c5e-424d-b236-4b877ca7c6cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\RenderPasses\Light Pass">
-      <UniqueIdentifier>{09de3311-7045-482d-b1c5-1475de13882a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Storage">
       <UniqueIdentifier>{3bb9507f-da38-4121-8f01-52a16f09fd01}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Enemy">
       <UniqueIdentifier>{7b4a885e-e035-4f6b-9366-752f844f1990}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\RenderPasses\Loading Screen Pass">
-      <UniqueIdentifier>{6b8cf0d9-59c2-4b28-9007-b3f83f63d321}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Objects">
       <UniqueIdentifier>{a8597a95-98bd-4539-9ac4-0e65d6bbe8fd}</UniqueIdentifier>
@@ -85,6 +73,24 @@
     <Filter Include="Engine\Light">
       <UniqueIdentifier>{c06c3309-8e79-4679-bfc2-0508c132460d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Render">
+      <UniqueIdentifier>{6e867f9c-dc0d-476b-ba01-9f8d6bb8184b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Render\RenderPasses">
+      <UniqueIdentifier>{ab18803c-213b-43db-8ae6-3b749bd60d2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Render\RenderPasses\Geometry Pass">
+      <UniqueIdentifier>{4f7da9dc-5c5e-424d-b236-4b877ca7c6cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Render\RenderPasses\Light Pass">
+      <UniqueIdentifier>{09de3311-7045-482d-b1c5-1475de13882a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Render\RenderPasses\Loading Screen Pass">
+      <UniqueIdentifier>{6b8cf0d9-59c2-4b28-9007-b3f83f63d321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Render\RenderMisc">
+      <UniqueIdentifier>{f78faf8b-b661-4f8c-a256-f688790b8cf6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -98,9 +104,6 @@
     </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Engine\Objects</Filter>
@@ -150,6 +153,12 @@
     <ClCompile Include="Light.cpp">
       <Filter>Engine\Light</Filter>
     </ClCompile>
+    <ClCompile Include="Decal.cpp">
+      <Filter>Engine\Render\RenderMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Engine\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -160,9 +169,6 @@
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Structures.h">
       <Filter>Header Files\UsefulHeaders</Filter>
@@ -230,25 +236,31 @@
     <ClInclude Include="Light.h">
       <Filter>Engine\Light</Filter>
     </ClInclude>
+    <ClInclude Include="Decal.h">
+      <Filter>Engine\Render\RenderMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Engine\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="GeometryPassPixelShader.hlsl">
-      <Filter>Engine\RenderPasses\Geometry Pass</Filter>
+      <Filter>Engine\Render\RenderPasses\Geometry Pass</Filter>
     </FxCompile>
     <FxCompile Include="GeometryPassVertex.hlsl">
-      <Filter>Engine\RenderPasses\Geometry Pass</Filter>
+      <Filter>Engine\Render\RenderPasses\Geometry Pass</Filter>
     </FxCompile>
     <FxCompile Include="LightPassVertex.hlsl">
-      <Filter>Engine\RenderPasses\Light Pass</Filter>
+      <Filter>Engine\Render\RenderPasses\Light Pass</Filter>
     </FxCompile>
     <FxCompile Include="LightPassPixelShader.hlsl">
-      <Filter>Engine\RenderPasses\Light Pass</Filter>
+      <Filter>Engine\Render\RenderPasses\Light Pass</Filter>
     </FxCompile>
     <FxCompile Include="LoadingVertexShader.hlsl">
-      <Filter>Engine\RenderPasses\Loading Screen Pass</Filter>
+      <Filter>Engine\Render\RenderPasses\Loading Screen Pass</Filter>
     </FxCompile>
     <FxCompile Include="LoadingPixelShader.hlsl">
-      <Filter>Engine\RenderPasses\Loading Screen Pass</Filter>
+      <Filter>Engine\Render\RenderPasses\Loading Screen Pass</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
