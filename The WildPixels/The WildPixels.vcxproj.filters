@@ -91,6 +91,9 @@
     <Filter Include="Engine\Render\RenderMisc">
       <UniqueIdentifier>{f78faf8b-b661-4f8c-a256-f688790b8cf6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Render\RenderMisc\hlsl">
+      <UniqueIdentifier>{12d74154-114e-49c5-8364-586c06ba54b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -158,6 +161,12 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Engine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderAble.cpp">
+      <Filter>Engine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="MiscRenderHandler.cpp">
+      <Filter>Engine\Render\RenderMisc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +251,12 @@
     <ClInclude Include="Renderer.h">
       <Filter>Engine\Render</Filter>
     </ClInclude>
+    <ClInclude Include="RenderAble.h">
+      <Filter>Engine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="MiscRenderHandler.h">
+      <Filter>Engine\Render\RenderMisc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="GeometryPassPixelShader.hlsl">
@@ -261,6 +276,12 @@
     </FxCompile>
     <FxCompile Include="LoadingPixelShader.hlsl">
       <Filter>Engine\Render\RenderPasses\Loading Screen Pass</Filter>
+    </FxCompile>
+    <FxCompile Include="MiscRenderVertexShader.hlsl">
+      <Filter>Engine\Render\RenderMisc\hlsl</Filter>
+    </FxCompile>
+    <FxCompile Include="MiscRenderPixelShader.hlsl">
+      <Filter>Engine\Render\RenderMisc\hlsl</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

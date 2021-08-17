@@ -125,13 +125,9 @@ bool Game::StartUp(HINSTANCE instance, UINT width, UINT height)
         return false;
     }
 	Engine::SetRenderType(RenderType::DEFERRED);
-	
-	// Load in the main menu at the beginning of game.
-	Decal decal();
 
 	//Engine::ClearResources();
 	THREAD_JOB(Game, LoadMainMenu);
-	//LoadMainMenu();
 
     return true;
 }

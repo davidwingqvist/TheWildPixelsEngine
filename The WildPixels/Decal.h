@@ -2,20 +2,19 @@
 #include <d3d11.h>
 #include <string>
 #include "Structures.h"
+#include "RenderAble.h"
+#include "ResourceManager.h"
 
-class Decal
+class Decal : public Renderable
 {
 private:
 
-	ID3D11Texture2D* decalTexture;
-	ID3D11ShaderResourceView* decalShaderView;
+	Texture* texture;
 	ID3D11Buffer* vertexBuffer;
 	ID3D11Buffer* indexBuffer;
-
-	bool doRender;
 	Vector2D position;
 
-	bool CreateTexture(const std::string file_path);
+	void CreateTexture(const std::string file_path);
 	bool CreateVertexBuffer(float* x, float* y);
 	bool CreateVertexBuffer(float* x, float* y, float width, float height);
 public:
@@ -32,7 +31,6 @@ public:
 
 	void Resize(float width, float height);
 
-	void ToggleRender(const bool&& toggle);
-	const bool IsRender() const;
-	void Render();
+	// Inherited via Renderable
+	virtual void Render() override;
 };

@@ -114,6 +114,8 @@ bool Engine::SetUp(HINSTANCE instance, UINT width, UINT height)
 	if (!this->renderer.Initialize())
 		return false;
 
+	MiscRenderer::Initialize();
+
 	// Default loading screen.
 	Engine::SetUpLoadingScreen("");
 

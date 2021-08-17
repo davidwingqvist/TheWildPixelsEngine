@@ -9,7 +9,7 @@
 #include "multi_thread_manager.h"
 #include "Storage.h"
 #include "Camera.h"
-#include "Decal.h"
+#include "MiscRenderHandler.h"
 #include <iostream>
 #include <fcntl.h>
 #include "InputHandler.h"
