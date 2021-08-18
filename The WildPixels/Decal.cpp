@@ -19,10 +19,10 @@ bool Decal::CreateVertexBuffer(float* x, float* y)
 
 	ScreenVertex screenQuad[4] =
 	{
-		{ { -x_pos - 0.05f, -y_pos - 0.05f, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
-		{ { -x_pos - 0.05f, y_pos + 0.05f, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
-		{ { x_pos + 0.05f, y_pos + 0.05f, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
-		{ { x_pos + 0.05f, -y_pos - 0.05f, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
+		{ { -x_pos - 0.025f, -y_pos - 0.025f, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
+		{ { -x_pos - 0.025f, y_pos + 0.025f, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
+		{ { x_pos + 0.025f, y_pos + 0.025f, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
+		{ { x_pos + 0.025f, -y_pos - 0.025f, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
 	};
 
 	UINT indices[] =
@@ -34,9 +34,9 @@ bool Decal::CreateVertexBuffer(float* x, float* y)
 	HRESULT hr;
 	D3D11_BUFFER_DESC bDesc;
 	bDesc.ByteWidth = (UINT)4 * sizeof(ScreenVertex);
-	bDesc.Usage = D3D11_USAGE_DYNAMIC;
-	bDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	bDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	bDesc.Usage = D3D11_USAGE_IMMUTABLE;
+	bDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bDesc.CPUAccessFlags = 0;
 	bDesc.MiscFlags = 0;
 
 	D3D11_SUBRESOURCE_DATA data;
@@ -85,9 +85,9 @@ bool Decal::CreateVertexBuffer(float* x, float* y, float width, float height)
 	HRESULT hr;
 	D3D11_BUFFER_DESC bDesc;
 	bDesc.ByteWidth = (UINT)4 * sizeof(ScreenVertex);
-	bDesc.Usage = D3D11_USAGE_DYNAMIC;
-	bDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	bDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	bDesc.Usage = D3D11_USAGE_IMMUTABLE;
+	bDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bDesc.CPUAccessFlags = 0;
 	bDesc.MiscFlags = 0;
 
 	D3D11_SUBRESOURCE_DATA data;
@@ -119,8 +119,8 @@ Decal::Decal(const std::string&& decal_path)
 	this->vertexBuffer = nullptr;
 
 	this->CreateTexture(decal_path);
-	float y = (float)Graphics::GetHeight() * 0.5f;
-	float x = (float)Graphics::GetWidth() * 0.5f;
+	float y = (float)Graphics::GetHeight() * 0.01f;
+	float x = (float)Graphics::GetWidth() * 0.01f;
 	this->CreateVertexBuffer(&x, &y);
 	this->position.x = x;
 	this->position.y = y;
@@ -153,8 +153,8 @@ Decal::Decal()
 	this->vertexBuffer = nullptr;
 
 	this->CreateTexture("Textures/Theunit.png");
-	float y = (float)Graphics::GetHeight() * 0.5f;
-	float x = (float)Graphics::GetWidth() * 0.5f;
+	float y = (float)Graphics::GetHeight() * 0.01f;
+	float x = (float)Graphics::GetWidth() * 0.01f;
 	this->CreateVertexBuffer(&x, &y);
 	this->position.x = x;
 	this->position.y = y;
@@ -170,7 +170,15 @@ Decal::~Decal()
 
 void Decal::Resize(float width, float height)
 {
+	ScreenVertex screenQuad[4] =
+	{
+		{ { -position.x + width, -position.y + height, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
+		{ { -position.x + width, position.y + height, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
+		{ { position.x + width, position.y + height, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
+		{ { position.x + width, -position.y + height, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
+	};
 
+	// To do... Update on GPU.
 }
 
 void Decal::Render()
@@ -178,7 +186,7 @@ void Decal::Render()
 	UINT stride = sizeof(ScreenVertex);
 	UINT offset = 0;
 	CONTEXT->IASetVertexBuffers(0, 1, &this->vertexBuffer, &stride, &offset);
-	CONTEXT->IASetIndexBuffer(this->indexBuffer, DXGI_FORMAT_D32_FLOAT, 0);
+	CONTEXT->IASetIndexBuffer(this->indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	CONTEXT->PSSetShaderResources(0, 1, &this->texture->GetShaderView());
 
 	/*

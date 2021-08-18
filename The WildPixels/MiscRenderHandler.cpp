@@ -1,6 +1,7 @@
 #include "MiscRenderHandler.h"
 #include <fstream>
 #include "Graphics.h"
+#include "multi_thread_manager.h"
 
 MiscRenderer* MiscRenderer::instance = nullptr;
 #define RENDERER MiscRenderer::instance
@@ -49,6 +50,7 @@ void MiscRenderer::Setup()
 
 void MiscRenderer::Bind()
 {
+	Graphics::SetBackbufferAsTarget();
 	CONTEXT->PSSetShader(this->pixelShader, NULL, NULL);
 	CONTEXT->VSSetShader(this->vertexShader, NULL, NULL);
 	CONTEXT->PSSetSamplers(0, 1, &this->sampler);
@@ -89,6 +91,7 @@ void MiscRenderer::Initialize()
 	if (!RENDERER)
 	{
 		RENDERER = new MiscRenderer();
+		THREAD_SINGLETON_JOB(MiscRenderer, Setup);
 	}
 }
 
@@ -110,7 +113,6 @@ void MiscRenderer::Render()
 	// To avoid possible crashes, break when size is less than 0.
 	if ((int)RENDERER->renderList.size() <= 0)
 		return;
-
 	RENDERER->Bind();
 	for (int i = 0; i < (int)RENDERER->renderList.size(); i++)
 	{

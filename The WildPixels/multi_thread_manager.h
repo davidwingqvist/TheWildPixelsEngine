@@ -128,6 +128,7 @@ public:
 		thread_free = 0
 		thread_running = 1
 		thread_done = 2
+		thread_working = 3
 		You should put thread_running at the start of the thread and thread_done at the absolute bottom.
 	*/
 	static void SetStatus(unsigned int status, int index);
@@ -163,4 +164,4 @@ public:
 	Create a job for the pooled threads,
 	This define is suited for singleton functions inside singletons.
 */
-#define THREAD_SINGLETON_JOB(class_name, function_name) MultiThreader::InsertJob(std::bind(&class_name::function_name, &*class_name::instance))
+#define THREAD_SINGLETON_JOB(class_name, function_name) (MultiThreader::IsActive()) ? MultiThreader::InsertJob(std::bind(&class_name::function_name, &*class_name::instance)) : class_name::function_name()

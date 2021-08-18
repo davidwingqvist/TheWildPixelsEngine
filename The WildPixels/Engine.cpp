@@ -50,7 +50,9 @@ void Engine::RenderDeferred()
 		this->renderer.RenderLightPass();
 		this->renderer.UnbindLightPass();
 		EDITSCENE.GetLight()->Cleanup();
-		
+
+
+		MISC_RENDER;
 		
 		break;
 	case GameState::INGAME_OPTIONS:
@@ -90,6 +92,7 @@ Engine::~Engine()
 	Graphics::Destroy();
 	MultiThreader::Destroy();
 	ResourceManager::Destroy();
+	MiscRenderer::Destroy();
 
 	if (this->currentCamera)
 		delete this->currentCamera;

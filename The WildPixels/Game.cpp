@@ -52,8 +52,8 @@ void Game::HandleInGameInput()
 
 	if (PRESSED(VK_LBUTTON))
 	{
-		GetCamera()->GetParts().position.y += 300.0f * Graphics::deltaTime;
-		GetCamera()->UpdateDOOM();
+		//GetCamera()->GetParts().position.y += 300.0f * Graphics::deltaTime;
+		//GetCamera()->UpdateDOOM();
 	}
 }
 
@@ -92,6 +92,9 @@ void Game::LoadMainMenu()
 
 	//LightStruct L = {};
 	//EDITSCENE.AddLight(L);
+
+	Decal* decal = new Decal();
+	ADD_MISC_REND(decal);
 
 	Camera* cam = new Camera();
 	cam->Preset();

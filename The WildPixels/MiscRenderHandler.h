@@ -33,4 +33,4 @@ public:
 };
 
 #define ADD_MISC_REND(renderObject) MiscRenderer::AddRenderObject(renderObject);
-#define MISC_RENDER() MiscRenderer::Render();
+#define MISC_RENDER MiscRenderer::Render();
