@@ -11,6 +11,7 @@ private:
 public:
 
 	Renderable();
+	virtual ~Renderable();
 
 	void ToggleRender(const bool&& toggle);
 	const bool IsRender() const;

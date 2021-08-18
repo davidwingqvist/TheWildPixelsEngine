@@ -164,4 +164,4 @@ public:
 	Create a job for the pooled threads,
 	This define is suited for singleton functions inside singletons.
 */
-#define THREAD_SINGLETON_JOB(class_name, function_name) (MultiThreader::IsActive()) ? MultiThreader::InsertJob(std::bind(&class_name::function_name, &*class_name::instance)) : class_name::function_name()
+#define THREAD_SINGLETON_JOB(class_name, function_name) (MultiThreader::IsActive()) ? MultiThreader::InsertJob(std::bind(&class_name::function_name, &*class_name::instance)) : class_name::instance->function_name()

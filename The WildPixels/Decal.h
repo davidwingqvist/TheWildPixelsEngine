@@ -27,7 +27,7 @@ public:
 	Decal(const std::string&& decal_path, Vector2D& pos);
 
 	Decal();
-	~Decal();
+	virtual ~Decal() override;
 
 	void Resize(float width, float height);
 

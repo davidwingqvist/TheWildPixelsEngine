@@ -72,6 +72,7 @@ MiscRenderer::MiscRenderer()
 
 MiscRenderer::~MiscRenderer()
 {
+
 	while ((int)this->renderList.size() > 0)
 	{
 		delete this->renderList[(int)this->renderList.size() - 1];
@@ -106,6 +107,14 @@ void MiscRenderer::Destroy()
 void MiscRenderer::AddRenderObject(Renderable* object)
 {
 	RENDERER->renderList.push_back(object);
+}
+
+Renderable* MiscRenderer::GetRenderObject(unsigned int pos)
+{
+	if (pos > (unsigned int)RENDERER->instance->renderList.size() || pos < 0)
+		return nullptr;
+
+	return RENDERER->instance->renderList[pos];
 }
 
 void MiscRenderer::Render()

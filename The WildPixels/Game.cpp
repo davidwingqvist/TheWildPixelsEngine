@@ -76,7 +76,6 @@ void Game::UpdateInGame()
 void Game::LoadMainMenu()
 {
 	SetLoadingStatus(true);
-	WindowText("Loading...");
 	this->player = new Player();
 	Engine::SetPlayer(this->player);
 	
@@ -105,7 +104,6 @@ void Game::LoadMainMenu()
 	std::cout << "[THREAD/GAME]Loaded Main Menu..." << "\n";
 //#endif
 
-	WindowText("DONE!");
 	SetLoadingStatus(false);
 }
 
@@ -116,8 +114,6 @@ Game::Game()
 
 Game::~Game()
 {
-	delete this->player;
-	Engine::SetPlayer(nullptr);
 	SceneHandle().RemoveAllScenes();
 }
 
@@ -137,7 +133,6 @@ bool Game::StartUp(HINSTANCE instance, UINT width, UINT height)
 
 bool Game::Update(float& dt)
 {
-	
 	Graphics::deltaTime = dt;
 	
 	if (HandleExceptionRendering())
