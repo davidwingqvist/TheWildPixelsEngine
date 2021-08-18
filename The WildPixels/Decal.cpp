@@ -14,15 +14,15 @@ void Decal::CreateTexture(const std::string file_path)
 
 bool Decal::CreateVertexBuffer(float* x, float* y)
 {
-	float x_pos = (*x) * 0.01f;
-	float y_pos = (*y) * 0.01f;
+	float x_pos = (*x);
+	float y_pos = (*y);
 
 	ScreenVertex screenQuad[4] =
 	{
-		{ { -x_pos - 0.025f, -y_pos - 0.025f, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
-		{ { -x_pos - 0.025f, y_pos + 0.025f, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
-		{ { x_pos + 0.025f, y_pos + 0.025f, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
-		{ { x_pos + 0.025f, -y_pos - 0.025f, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
+		{ { x_pos, y_pos - 0.1f, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
+		{ { x_pos, y_pos, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
+		{ { x_pos + 0.1f, y_pos, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
+		{ { x_pos + 0.1f, y_pos - 0.1f, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
 	};
 
 	UINT indices[] =
@@ -135,7 +135,7 @@ Decal::Decal(const std::string&& decal_path, float x, float y)
 	this->position.y = y;
 
 	this->CreateTexture(decal_path);
-	this->CreateVertexBuffer(&x, &y);
+	this->CreateVertexBuffer(&this->position.x, &this->position.y);
 }
 
 Decal::Decal(const std::string&& decal_path, Vector2D& pos)

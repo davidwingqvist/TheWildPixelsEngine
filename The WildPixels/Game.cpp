@@ -92,7 +92,7 @@ void Game::LoadMainMenu()
 	//LightStruct L = {};
 	//EDITSCENE.AddLight(L);
 
-	Decal* decal = new Decal();
+	Decal* decal = new Decal("Textures/Theunit.png", -1.0f, .0f);
 	ADD_MISC_REND(decal);
 
 	Camera* cam = new Camera();
