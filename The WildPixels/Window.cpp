@@ -1,6 +1,7 @@
 #include "Window.h"
 #include <WinUser.h>
 #include <string>
+#include "InputHandler.h"
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -33,7 +34,7 @@ bool Window::SetUp(HINSTANCE instance, UINT width, UINT height)
 
 	WNDCLASS wc = { };
 
-	wc.lpfnWndProc = WindowProc;
+	wc.lpfnWndProc = InputHandler::WndProc;
 	wc.hInstance = instance;
 	wc.lpszClassName = CLASS_NAME;
 

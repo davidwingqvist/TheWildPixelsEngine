@@ -93,6 +93,7 @@ Engine::~Engine()
 	MultiThreader::Destroy();
 	ResourceManager::Destroy();
 	MiscRenderer::Destroy();
+	InputHandler::Destroy();
 
 	if (this->currentCamera)
 		delete this->currentCamera;
@@ -110,6 +111,7 @@ bool Engine::SetUp(HINSTANCE instance, UINT width, UINT height)
 	// If you don't want multithreading, simply put "amount" to 0.
 	MultiThreader::Init(availableCores - 1, ThreadType::POOL_FIFO);
 	ResourceManager::Initialize();
+	InputHandler::Initialize();
 
 	if (!Graphics::Initialize(instance, width, height))
 		return false;

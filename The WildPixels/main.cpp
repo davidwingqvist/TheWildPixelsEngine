@@ -11,8 +11,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int       nCmdShow)
 {
 	Game game;
-	UINT width = 1920;
-	UINT height = 1080;
+	UINT width = 1080;
+	UINT height = 720;
 
 	// Disables the notification of program being "unresponsive" but its only loading shit.
 	DisableProcessWindowsGhosting();
@@ -32,11 +32,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	const float targetDelta = 1 / 100000000000000000000000.f;
 	while (!(GetKeyState(VK_ESCAPE) & 0x8000) && msg.message != WM_QUIT)
 	{
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
+		// If this returns true then the game should quit.
+		if (InputHandler::HandleMessages())
+			break;
 
 		currentFrame = omp_get_wtime();
 		deltaTime = static_cast<float>(currentFrame - lastFrame);

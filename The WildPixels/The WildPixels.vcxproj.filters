@@ -284,4 +284,7 @@
       <Filter>Engine\Render\RenderMisc\hlsl</Filter>
     </FxCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

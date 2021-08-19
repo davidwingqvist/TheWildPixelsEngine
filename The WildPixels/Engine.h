@@ -19,8 +19,6 @@
 
 #define EDITSCENE SceneHandle().EditScene()
 #define MESH(mesh) Engine::RegisterMesh(mesh)
-#define INPUT(key) Engine::inputHandler.IsHeld(key)
-#define PRESSED(key) Engine::inputHandler.IsPressedDown(key)
 
 enum class RenderType {
 
@@ -58,10 +56,6 @@ private:
 
 	void RenderDeferred();
 	void RenderForward();
-
-protected:
-
-	InputHandler inputHandler;
 
 public:
 

@@ -55,6 +55,8 @@ void Game::HandleInGameInput()
 		//GetCamera()->GetParts().position.y += 300.0f * Graphics::deltaTime;
 		//GetCamera()->UpdateDOOM();
 	}
+
+	UPDATE_INPUT;
 }
 
 /*
