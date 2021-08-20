@@ -102,7 +102,7 @@ void Game::LoadMainMenu()
 	//LightStruct L = {};
 	//EDITSCENE.AddLight(L);
 
-	Decal* decal = new Decal("Textures/Theunit.png", .5f, .0f, .1f, .1f);
+	Decal* decal = new Decal("Textures/Theunit.png", .5f, .0f, .25f, .25f);
 	decal->ToggleClickAble(true);
 	ADD_MISC_REND(decal);
 
