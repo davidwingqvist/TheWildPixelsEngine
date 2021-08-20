@@ -46,15 +46,20 @@ private:
 	DirectX::Keyboard::State keyboardState;
 	MSG state;
 
-	float x_mouse_pos = 0;
-	float y_mouse_pos = 0;
-
 	InputHandler();
 	~InputHandler();
+
+	float x_mouse_pos;
+	float y_mouse_pos;
 
 	bool shouldQuit = false;
 
 public:
+
+	// These return the screen space coordinates of mouse position [-1, 1]
+	static float* GetMouseX();
+	// These return the screen space coordinates of mouse position [-1, 1]
+	static float* GetMouseY();
 
 	static InputHandler* instance;
 	static void Initialize();
@@ -70,7 +75,7 @@ public:
 
 #define INPUT(key) InputHandler::instance->IsHeld(key)
 #define PRESSED(key) InputHandler::instance->IsPressedDown(key)
-#define UPDATE_INPUT InputHandler::instance->Update();
+#define UPDATE_INPUT InputHandler::instance->Update()
 
-#define MOUSE_X InputHandler::instance->x_mouse_pos;
-#define MOUSE_Y InputHandler::instance->y_mouse_pos;
+#define MOUSE_X InputHandler::instance->GetMouseX()
+#define MOUSE_Y InputHandler::instance->GetMouseY()

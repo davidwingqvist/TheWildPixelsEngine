@@ -29,10 +29,11 @@ public:
 	static void Initialize();
 	static void Destroy();
 	static void AddRenderObject(Renderable* object);
-	Renderable* GetRenderObject(unsigned int pos);
+	static Renderable* GetRenderObject(unsigned int pos);
+	static int GetVectorSize();
 	static void Render();
 };
 
 #define ADD_MISC_REND(renderObject) MiscRenderer::AddRenderObject(renderObject);
-#define GET_MISC_RENDER(type, pos) dynamic_cast<type>(MiscRenderer::GetRenderObject(pos));
+#define GET_MISC_RENDER(type, pos) dynamic_cast<type*>(MiscRenderer::GetRenderObject(pos));
 #define MISC_RENDER MiscRenderer::Render();

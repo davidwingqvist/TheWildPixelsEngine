@@ -117,6 +117,11 @@ Renderable* MiscRenderer::GetRenderObject(unsigned int pos)
 	return RENDERER->instance->renderList[pos];
 }
 
+int MiscRenderer::GetVectorSize()
+{
+	return (int)RENDERER->renderList.size();
+}
+
 void MiscRenderer::Render()
 {
 	// To avoid possible crashes, break when size is less than 0.

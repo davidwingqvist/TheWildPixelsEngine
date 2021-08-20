@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <cstring>
+#include "gamelogic_math.h"
 
 /*
 	---------INPUTS---------
@@ -52,9 +53,18 @@ void Game::HandleInGameInput()
 
 	if (PRESSED(VK_LBUTTON))
 	{
-		//GetCamera()->GetParts().position.y += 300.0f * Graphics::deltaTime;
-		//GetCamera()->UpdateDOOM();
+		for (unsigned int i = 0; i < MiscRenderer::GetVectorSize(); i++)
+		{
+			Decal* decal = GET_MISC_RENDER(Decal, i);
+			if (decal)
+				if (decal->Colliding(MOUSE_X, MOUSE_Y))
+				{
+					std::cout << "COLLISION!\n";
+					//decal->RePosition(randomize(-.75f, 1.0f), randomize(-.75f, 1.0f));
+				}
+		}
 	}
+
 
 	UPDATE_INPUT;
 }
@@ -94,7 +104,8 @@ void Game::LoadMainMenu()
 	//LightStruct L = {};
 	//EDITSCENE.AddLight(L);
 
-	Decal* decal = new Decal("Textures/Theunit.png", -1.0f, .0f);
+	Decal* decal = new Decal("Textures/Theunit.png", -.0f, .0f);
+	decal->ToggleClickAble(true);
 	ADD_MISC_REND(decal);
 
 	Camera* cam = new Camera();

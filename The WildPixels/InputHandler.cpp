@@ -21,11 +21,23 @@ InputHandler::~InputHandler()
 {
 }
 
+float* InputHandler::GetMouseX()
+{
+	return &INSTANCE->x_mouse_pos;
+}
+
+float* InputHandler::GetMouseY()
+{
+	return &INSTANCE->y_mouse_pos;
+}
+
 void InputHandler::Initialize()
 {
 	if (!INSTANCE)
 	{
 		INSTANCE = new InputHandler();
+		INSTANCE->x_mouse_pos = 0;
+		INSTANCE->y_mouse_pos = 0;
 	}
 }
 
@@ -62,10 +74,10 @@ void InputHandler::Update()
 	INSTANCE->x_mouse_pos = ((float)INSTANCE->mouse->GetState().x / (float)Graphics::GetWidth());
 	INSTANCE->y_mouse_pos = ((float)INSTANCE->mouse->GetState().y / (float)Graphics::GetHeight());
 
-	INSTANCE->x_mouse_pos = (INSTANCE->x_mouse_pos) * (1.0f - (-1.0f)) + -1.0f;
-	INSTANCE->y_mouse_pos = (INSTANCE->y_mouse_pos) * (1.0f - (-1.0f)) + -1.0f;
+	INSTANCE->x_mouse_pos = (INSTANCE->x_mouse_pos * 2.0f) - 1.0f;
+	INSTANCE->y_mouse_pos = ((INSTANCE->y_mouse_pos * (1.0f - -1.0f)) + -1.0f) * -1.0f;
 
-	std::cout << "X: " << INSTANCE->x_mouse_pos << " Y: " << INSTANCE->y_mouse_pos << "\n";
+	//std::cout << "X: " << INSTANCE->x_mouse_pos << " Y: " << INSTANCE->y_mouse_pos << "\n";
 }
 
 bool InputHandler::HandleMessages()

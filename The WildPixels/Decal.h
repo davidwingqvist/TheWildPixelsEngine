@@ -13,6 +13,7 @@ private:
 	ID3D11Buffer* vertexBuffer;
 	ID3D11Buffer* indexBuffer;
 	Vector2D position;
+	Vector2D widthHeight;
 
 	void CreateTexture(const std::string file_path);
 	bool CreateVertexBuffer(float* x, float* y);
@@ -30,7 +31,11 @@ public:
 	virtual ~Decal() override;
 
 	void Resize(float width, float height);
+	void RePosition(float x, float y);
 
 	// Inherited via Renderable
 	virtual void Render() override;
+
+	// Inherited via Renderable
+	virtual const bool Colliding(float* x, float* y) override;
 };

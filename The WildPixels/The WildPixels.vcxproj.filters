@@ -94,6 +94,9 @@
     <Filter Include="Engine\Render\RenderMisc\hlsl">
       <UniqueIdentifier>{12d74154-114e-49c5-8364-586c06ba54b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Helper Math">
+      <UniqueIdentifier>{2dda43ca-1dee-49b6-8fb8-3cd01e193441}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -256,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="MiscRenderHandler.h">
       <Filter>Engine\Render\RenderMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="gamelogic_math.h">
+      <Filter>Engine\Helper Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

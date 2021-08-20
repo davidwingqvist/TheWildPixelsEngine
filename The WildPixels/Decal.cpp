@@ -17,6 +17,9 @@ bool Decal::CreateVertexBuffer(float* x, float* y)
 	float x_pos = (*x);
 	float y_pos = (*y);
 
+	this->widthHeight.x = 0.1f;
+	this->widthHeight.y = 0.1f;
+
 	ScreenVertex screenQuad[4] =
 	{
 		{ { x_pos, y_pos - 0.1f, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
@@ -34,9 +37,9 @@ bool Decal::CreateVertexBuffer(float* x, float* y)
 	HRESULT hr;
 	D3D11_BUFFER_DESC bDesc;
 	bDesc.ByteWidth = (UINT)4 * sizeof(ScreenVertex);
-	bDesc.Usage = D3D11_USAGE_IMMUTABLE;
+	bDesc.Usage = D3D11_USAGE_DYNAMIC;
 	bDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bDesc.CPUAccessFlags = 0;
+	bDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	bDesc.MiscFlags = 0;
 
 	D3D11_SUBRESOURCE_DATA data;
@@ -68,12 +71,15 @@ bool Decal::CreateVertexBuffer(float* x, float* y, float width, float height)
 	float x_pos = (*x) * 0.01f;
 	float y_pos = (*y) * 0.01f;
 
+	this->widthHeight.x = width;
+	this->widthHeight.y = height;
+
 	ScreenVertex screenQuad[4] =
 	{
-		{ { -x_pos, -y_pos, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
-		{ { -x_pos, y_pos, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
-		{ { x_pos, y_pos, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
-		{ { x_pos, -y_pos, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
+		{ { x_pos, y_pos - height, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
+		{ { x_pos, y_pos, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
+		{ { x_pos + width, y_pos, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
+		{ { x_pos + width, y_pos - height, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
 	};
 
 	UINT indices[] =
@@ -85,9 +91,9 @@ bool Decal::CreateVertexBuffer(float* x, float* y, float width, float height)
 	HRESULT hr;
 	D3D11_BUFFER_DESC bDesc;
 	bDesc.ByteWidth = (UINT)4 * sizeof(ScreenVertex);
-	bDesc.Usage = D3D11_USAGE_IMMUTABLE;
+	bDesc.Usage = D3D11_USAGE_DYNAMIC;
 	bDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bDesc.CPUAccessFlags = 0;
+	bDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	bDesc.MiscFlags = 0;
 
 	D3D11_SUBRESOURCE_DATA data;
@@ -141,9 +147,7 @@ Decal::Decal(const std::string&& decal_path, float x, float y)
 Decal::Decal(const std::string&& decal_path, Vector2D& pos)
 {
 	this->vertexBuffer = nullptr;
-
 	this->position = pos;
-
 	this->CreateTexture(decal_path);
 	this->CreateVertexBuffer(&pos.x, &pos.y);
 }
@@ -170,15 +174,40 @@ Decal::~Decal()
 
 void Decal::Resize(float width, float height)
 {
+	widthHeight.x = width;
+	widthHeight.y = height;
+
 	ScreenVertex screenQuad[4] =
 	{
-		{ { -position.x + width, -position.y + height, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
-		{ { -position.x + width, position.y + height, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
-		{ { position.x + width, position.y + height, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
-		{ { position.x + width, -position.y + height, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
+		{ { position.x, position.y - height, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
+		{ { position.x, position.y, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
+		{ { position.x + width, position.y, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
+		{ { position.x + width, position.y - height, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
 	};
 
-	// To do... Update on GPU.
+	D3D11_MAPPED_SUBRESOURCE mappedResource = {};
+	Graphics::GetContext()->Map(this->vertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	memcpy(mappedResource.pData, &screenQuad, sizeof(screenQuad));
+	Graphics::GetContext()->Unmap(this->vertexBuffer, 0);
+}
+
+void Decal::RePosition(float x, float y)
+{
+	position.x = x;
+	position.y = y;
+
+	ScreenVertex screenQuad[4] =
+	{
+		{ { position.x, position.y - widthHeight.y, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
+		{ { position.x, position.y, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
+		{ { position.x + widthHeight.x, position.y, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
+		{ { position.x + widthHeight.x, position.y - widthHeight.y, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
+	};
+
+	D3D11_MAPPED_SUBRESOURCE mappedResource = {};
+	Graphics::GetContext()->Map(this->vertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	memcpy(mappedResource.pData, &screenQuad, sizeof(screenQuad));
+	Graphics::GetContext()->Unmap(this->vertexBuffer, 0);
 }
 
 void Decal::Render()
@@ -193,4 +222,21 @@ void Decal::Render()
 		Draw!!
 	*/
 	CONTEXT->DrawIndexed(6, 0, 0);
+}
+
+const bool Decal::Colliding(float* x, float* y)
+{
+	// In this case, x and y is the position of the mouse.
+	float x_pos = *(x);
+	float y_pos = *(y);
+
+	std::cout << "X: " << x_pos << " Y: " << y_pos << "\n" << "X2: " << position.x
+		<< " Y2: " << position.y << "\n" << "Width: " << position.x + widthHeight.x << " Height: " <<
+		position.y + widthHeight.y << "\n";
+
+	if (x_pos >= position.x && x_pos <= position.x + widthHeight.x &&
+		y_pos <= position.y && y_pos >= position.y - widthHeight.y)
+		return true;
+
+	return false;
 }
