@@ -59,8 +59,7 @@ void Game::HandleInGameInput()
 			if (decal)
 				if (decal->Colliding(MOUSE_X, MOUSE_Y))
 				{
-					std::cout << "COLLISION!\n";
-					//decal->RePosition(randomize(-.75f, 1.0f), randomize(-.75f, 1.0f));
+					decal->RePosition(randomize(-1.0f, 0.0f), randomize(0.0f, 1.0f));
 				}
 		}
 	}
@@ -104,7 +103,7 @@ void Game::LoadMainMenu()
 	//LightStruct L = {};
 	//EDITSCENE.AddLight(L);
 
-	Decal* decal = new Decal("Textures/Theunit.png", -.0f, .0f);
+	Decal* decal = new Decal("Textures/Theunit.png", .5f, .0f, 1.0, 1.0);
 	decal->ToggleClickAble(true);
 	ADD_MISC_REND(decal);
 

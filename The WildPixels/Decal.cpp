@@ -17,15 +17,15 @@ bool Decal::CreateVertexBuffer(float* x, float* y)
 	float x_pos = (*x);
 	float y_pos = (*y);
 
-	this->widthHeight.x = 0.1f;
-	this->widthHeight.y = 0.1f;
+	this->width = 0.1f;
+	this->height = 0.1f;
 
 	ScreenVertex screenQuad[4] =
 	{
-		{ { x_pos, y_pos - 0.1f, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
+		{ { x_pos, y_pos - (float)this->height, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
 		{ { x_pos, y_pos, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
-		{ { x_pos + 0.1f, y_pos, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
-		{ { x_pos + 0.1f, y_pos - 0.1f, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
+		{ { x_pos + (float)this->width, y_pos, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
+		{ { x_pos + (float)this->width, y_pos - (float)this->height, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
 	};
 
 	UINT indices[] =
@@ -71,8 +71,8 @@ bool Decal::CreateVertexBuffer(float* x, float* y, float width, float height)
 	float x_pos = (*x) * 0.01f;
 	float y_pos = (*y) * 0.01f;
 
-	this->widthHeight.x = width;
-	this->widthHeight.y = height;
+	this->width = width;
+	this->height = height;
 
 	ScreenVertex screenQuad[4] =
 	{
@@ -152,6 +152,18 @@ Decal::Decal(const std::string&& decal_path, Vector2D& pos)
 	this->CreateVertexBuffer(&pos.x, &pos.y);
 }
 
+Decal::Decal(const std::string&& decal_path, float x, float y, double width, double height)
+{
+	this->vertexBuffer = nullptr;
+	this->indexBuffer = nullptr;
+
+	this->position.x = x;
+	this->position.y = y;
+
+	this->CreateTexture(decal_path);
+	this->CreateVertexBuffer(&this->position.x, &this->position.y, width, height);
+}
+
 Decal::Decal()
 {
 	this->vertexBuffer = nullptr;
@@ -174,8 +186,8 @@ Decal::~Decal()
 
 void Decal::Resize(float width, float height)
 {
-	widthHeight.x = width;
-	widthHeight.y = height;
+	this->width = width;
+	this->height = height;
 
 	ScreenVertex screenQuad[4] =
 	{
@@ -198,10 +210,10 @@ void Decal::RePosition(float x, float y)
 
 	ScreenVertex screenQuad[4] =
 	{
-		{ { position.x, position.y - widthHeight.y, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
+		{ { position.x, position.y - (float)width, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
 		{ { position.x, position.y, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
-		{ { position.x + widthHeight.x, position.y, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
-		{ { position.x + widthHeight.x, position.y - widthHeight.y, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
+		{ { position.x + (float)width, position.y, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
+		{ { position.x + (float)width, position.y - (float)height, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
 	};
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource = {};
@@ -224,18 +236,20 @@ void Decal::Render()
 	CONTEXT->DrawIndexed(6, 0, 0);
 }
 
-const bool Decal::Colliding(float* x, float* y)
+const bool Decal::Colliding(double* x, double* y)
 {
 	// In this case, x and y is the position of the mouse.
 	float x_pos = *(x);
 	float y_pos = *(y);
 
+	/*
 	std::cout << "X: " << x_pos << " Y: " << y_pos << "\n" << "X2: " << position.x
-		<< " Y2: " << position.y << "\n" << "Width: " << position.x + widthHeight.x << " Height: " <<
-		position.y + widthHeight.y << "\n";
+		<< " Y2: " << position.y << "\n" << "Width: " << position.x + width << " Height: " <<
+		position.y + height << "\n";
+		*/
 
-	if (x_pos >= position.x && x_pos <= position.x + widthHeight.x &&
-		y_pos <= position.y && y_pos >= position.y - widthHeight.y)
+	if (x_pos >= position.x && x_pos <= position.x + width &&
+		y_pos <= position.y && y_pos >= position.y - height)
 		return true;
 
 	return false;

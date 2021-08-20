@@ -21,12 +21,12 @@ InputHandler::~InputHandler()
 {
 }
 
-float* InputHandler::GetMouseX()
+double* InputHandler::GetMouseX()
 {
 	return &INSTANCE->x_mouse_pos;
 }
 
-float* InputHandler::GetMouseY()
+double* InputHandler::GetMouseY()
 {
 	return &INSTANCE->y_mouse_pos;
 }
@@ -71,11 +71,11 @@ void InputHandler::Update()
 	INSTANCE->keyboard_tracker->Update(INSTANCE->keyboardState);
 
 	// Convert the mouse coordinates to screen space. [-1, 1]
-	INSTANCE->x_mouse_pos = ((float)INSTANCE->mouse->GetState().x / (float)Graphics::GetWidth());
-	INSTANCE->y_mouse_pos = ((float)INSTANCE->mouse->GetState().y / (float)Graphics::GetHeight());
+	INSTANCE->x_mouse_pos = ((double)INSTANCE->mouse->GetState().x / (double)Graphics::GetWidth());
+	INSTANCE->y_mouse_pos = ((double)INSTANCE->mouse->GetState().y / (double)Graphics::GetHeight());
 
 	INSTANCE->x_mouse_pos = (INSTANCE->x_mouse_pos * 2.0f) - 1.0f;
-	INSTANCE->y_mouse_pos = ((INSTANCE->y_mouse_pos * (1.0f - -1.0f)) + -1.0f) * -1.0f;
+	INSTANCE->y_mouse_pos = ((INSTANCE->y_mouse_pos * 2.0f) - 1.0f) * -1.0f;
 
 	//std::cout << "X: " << INSTANCE->x_mouse_pos << " Y: " << INSTANCE->y_mouse_pos << "\n";
 }

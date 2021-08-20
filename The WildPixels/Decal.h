@@ -13,7 +13,8 @@ private:
 	ID3D11Buffer* vertexBuffer;
 	ID3D11Buffer* indexBuffer;
 	Vector2D position;
-	Vector2D widthHeight;
+	double width;
+	double height;
 
 	void CreateTexture(const std::string file_path);
 	bool CreateVertexBuffer(float* x, float* y);
@@ -26,6 +27,7 @@ public:
 	// Create a decal to be rendered at the specified location.
 	Decal(const std::string&& decal_path, float x, float y);
 	Decal(const std::string&& decal_path, Vector2D& pos);
+	Decal(const std::string&& decal_path, float x, float y, double width, double height);
 
 	Decal();
 	virtual ~Decal() override;
@@ -37,5 +39,5 @@ public:
 	virtual void Render() override;
 
 	// Inherited via Renderable
-	virtual const bool Colliding(float* x, float* y) override;
+	virtual const bool Colliding(double* x, double* y) override;
 };
