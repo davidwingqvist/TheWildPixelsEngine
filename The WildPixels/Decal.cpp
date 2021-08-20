@@ -17,8 +17,8 @@ bool Decal::CreateVertexBuffer(float* x, float* y)
 	float x_pos = (*x);
 	float y_pos = (*y);
 
-	this->width = 0.1f;
-	this->height = 0.1f;
+	this->width = 0.25f;
+	this->height = 0.25f;
 
 	ScreenVertex screenQuad[4] =
 	{
@@ -68,18 +68,18 @@ bool Decal::CreateVertexBuffer(float* x, float* y)
 
 bool Decal::CreateVertexBuffer(float* x, float* y, float width, float height)
 {
-	float x_pos = (*x) * 0.01f;
-	float y_pos = (*y) * 0.01f;
+	float x_pos = (*x);
+	float y_pos = (*y);
 
 	this->width = width;
 	this->height = height;
 
 	ScreenVertex screenQuad[4] =
 	{
-		{ { x_pos, y_pos - height, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
+		{ { x_pos, y_pos - (float)this->height, 0.0f }, { 0.0f, 1.0f } }, // BOTTOM LEFT
 		{ { x_pos, y_pos, 0.0f }, { 0.0f, 0.0f } },   // TOP LEFT
-		{ { x_pos + width, y_pos, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
-		{ { x_pos + width, y_pos - height, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
+		{ { x_pos + (float)this->width, y_pos, 0.0f }, { 1.0f, 0.0f } },   // TOP RIGHT
+		{ { x_pos + (float)this->width, y_pos - (float)this->height, 0.0f }, { 1.0f, 1.0f } }    // BOTTOM RIGHT
 	};
 
 	UINT indices[] =
@@ -222,7 +222,7 @@ void Decal::RePosition(float x, float y)
 	Graphics::GetContext()->Unmap(this->vertexBuffer, 0);
 }
 
-void Decal::Render()
+void Decal::Render(CamParts& camParts)
 {
 	UINT stride = sizeof(ScreenVertex);
 	UINT offset = 0;
@@ -230,23 +230,38 @@ void Decal::Render()
 	CONTEXT->IASetIndexBuffer(this->indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	CONTEXT->PSSetShaderResources(0, 1, &this->texture->GetShaderView());
 
+	DirectX::XMMATRIX view = DirectX::XMLoadFloat4x4(&camParts.view);
+	DirectX::XMMATRIX projection = DirectX::XMLoadFloat4x4(&camParts.projection);
+
+	DirectX::XMFLOAT4 pos = { position.x, position.y, 0.0f, 1.0f };
+	DirectX::XMVECTOR pos_v = DirectX::XMLoadFloat4(&pos);
+
+	DirectX::XMVector4Transform(pos_v, view);
+	DirectX::XMVector4Transform(pos_v, projection);
+	DirectX::XMStoreFloat4(&pos, pos_v);
+	pos.x /= pos.w;
+	pos.y /= pos.w;
+
+	position.x = pos.x;
+	position.y = pos.y;
+
+	std::cout << "X: " << pos.x << " Y: " << pos.y << "\n";
+
 	/*
 		Draw!!
 	*/
 	CONTEXT->DrawIndexed(6, 0, 0);
 }
 
-const bool Decal::Colliding(double* x, double* y)
+const bool Decal::Colliding(float* x, float* y)
 {
 	// In this case, x and y is the position of the mouse.
 	float x_pos = *(x);
 	float y_pos = *(y);
 
-	/*
 	std::cout << "X: " << x_pos << " Y: " << y_pos << "\n" << "X2: " << position.x
 		<< " Y2: " << position.y << "\n" << "Width: " << position.x + width << " Height: " <<
 		position.y + height << "\n";
-		*/
 
 	if (x_pos >= position.x && x_pos <= position.x + width &&
 		y_pos <= position.y && y_pos >= position.y - height)

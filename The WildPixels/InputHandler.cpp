@@ -2,6 +2,7 @@
 #include "Graphics.h"
 #include <dinput.h>
 #include <iostream>
+#include <DirectXMath.h>
 
 InputHandler* InputHandler::instance = nullptr;
 
@@ -21,12 +22,12 @@ InputHandler::~InputHandler()
 {
 }
 
-double* InputHandler::GetMouseX()
+float* InputHandler::GetMouseX()
 {
 	return &INSTANCE->x_mouse_pos;
 }
 
-double* InputHandler::GetMouseY()
+float* InputHandler::GetMouseY()
 {
 	return &INSTANCE->y_mouse_pos;
 }
@@ -44,7 +45,7 @@ void InputHandler::Initialize()
 void InputHandler::SetWindow(HWND& window)
 {
 	INSTANCE->mouse->SetWindow(window);
-	INSTANCE->mouse->SetMode(Mouse::Mode::MODE_RELATIVE);
+	INSTANCE->mouse->SetMode(Mouse::Mode::MODE_ABSOLUTE);
 }
 
 void InputHandler::Destroy()

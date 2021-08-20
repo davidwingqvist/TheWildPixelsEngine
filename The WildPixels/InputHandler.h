@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <Mouse.h>
 #include <Keyboard.h>
+#include "Camera.h"
 
 namespace keyboard
 {
@@ -49,17 +50,17 @@ private:
 	InputHandler();
 	~InputHandler();
 
-	double x_mouse_pos;
-	double y_mouse_pos;
+	float x_mouse_pos;
+	float y_mouse_pos;
 
 	bool shouldQuit = false;
 
 public:
 
 	// These return the screen space coordinates of mouse position [-1, 1]
-	static double* GetMouseX();
+	static float* GetMouseX();
 	// These return the screen space coordinates of mouse position [-1, 1]
-	static double* GetMouseY();
+	static float* GetMouseY();
 
 	static InputHandler* instance;
 	static void Initialize();

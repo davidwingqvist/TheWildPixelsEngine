@@ -31,7 +31,7 @@ public:
 	static void AddRenderObject(Renderable* object);
 	static Renderable* GetRenderObject(unsigned int pos);
 	static int GetVectorSize();
-	static void Render();
+	static void Render(CamParts& camParts);
 };
 
 #define ADD_MISC_REND(renderObject) MiscRenderer::AddRenderObject(renderObject);

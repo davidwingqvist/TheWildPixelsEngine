@@ -52,7 +52,7 @@ void Engine::RenderDeferred()
 		EDITSCENE.GetLight()->Cleanup();
 
 
-		MISC_RENDER;
+		MiscRenderer::Render(this->currentCamera->GetParts());
 		
 		break;
 	case GameState::INGAME_OPTIONS:

@@ -4,6 +4,7 @@
 #include "Structures.h"
 #include "RenderAble.h"
 #include "ResourceManager.h"
+#include "Camera.h"
 
 class Decal : public Renderable
 {
@@ -35,9 +36,8 @@ public:
 	void Resize(float width, float height);
 	void RePosition(float x, float y);
 
-	// Inherited via Renderable
-	virtual void Render() override;
+	virtual void Render(CamParts& camParts) override;
 
 	// Inherited via Renderable
-	virtual const bool Colliding(double* x, double* y) override;
+	virtual const bool Colliding(float* x, float* y) override;
 };

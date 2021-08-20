@@ -122,7 +122,7 @@ int MiscRenderer::GetVectorSize()
 	return (int)RENDERER->renderList.size();
 }
 
-void MiscRenderer::Render()
+void MiscRenderer::Render(CamParts& camParts)
 {
 	// To avoid possible crashes, break when size is less than 0.
 	if ((int)RENDERER->renderList.size() <= 0)
@@ -132,7 +132,7 @@ void MiscRenderer::Render()
 	{
 		// Check if its set to be rendered and render it.
 		if(RENDERER->renderList[i]->IsRender())
-			RENDERER->renderList[i]->Render();
+			RENDERER->renderList[i]->Render(camParts);
 	}
 	RENDERER->UnBind();
 }
