@@ -57,7 +57,7 @@ void Game::HandleInGameInput()
 		{
 			Decal* decal = GET_MISC_RENDER(Decal, i);
 			if (decal)
-				if (decal->Colliding(MOUSE_X, MOUSE_Y))
+				if (decal->Colliding(MOUSE_X, MOUSE_Y) && decal->IsClickAble())
 				{
 					decal->RePosition(randomize(-1.0f, 0.0f), randomize(0.0f, 1.0f));
 				}

@@ -29,7 +29,6 @@ void Engine::RenderDeferred()
 	this->renderer.PrepareGeometryPass();
 
 	
-	
 	if (this->currentCamera != nullptr)
 		this->currentCamera->Render();
 	

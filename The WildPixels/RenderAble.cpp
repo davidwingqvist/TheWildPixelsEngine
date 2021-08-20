@@ -17,6 +17,7 @@ void Renderable::ToggleRender(const bool&& toggle)
 
 void Renderable::ToggleClickAble(const bool&& toggle)
 {
+	this->clickAble = toggle;
 }
 
 const bool Renderable::IsRender() const
