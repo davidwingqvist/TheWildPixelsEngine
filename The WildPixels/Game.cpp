@@ -53,7 +53,7 @@ void Game::HandleInGameInput()
 
 	if (PRESSED(VK_LBUTTON))
 	{
-		for (unsigned int i = 0; i < MiscRenderer::GetVectorSize(); i++)
+		for (unsigned int i = 0; i < (unsigned int)MiscRenderer::GetVectorSize(); i++)
 		{
 			Decal* decal = GET_MISC_RENDER(Decal, i);
 			if (decal)
@@ -102,7 +102,7 @@ void Game::LoadMainMenu()
 	//LightStruct L = {};
 	//EDITSCENE.AddLight(L);
 
-	Decal* decal = new Decal("Textures/Theunit.png", .5f, .0f, .1, .1);
+	Decal* decal = new Decal("Textures/Theunit.png", .5f, .0f, .1f, .1f);
 	decal->ToggleClickAble(true);
 	ADD_MISC_REND(decal);
 

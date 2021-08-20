@@ -71,10 +71,14 @@ void InputHandler::Update()
 	INSTANCE->keyboardState = INSTANCE->keyboard->GetState();
 	INSTANCE->keyboard_tracker->Update(INSTANCE->keyboardState);
 
-	// Convert the mouse coordinates to screen space. [-1, 1]
+	// Convert the mouse coordinates to NDC space.
+
+	// This converts the coordinates to min/max [0, 1]
 	INSTANCE->x_mouse_pos = ((double)INSTANCE->mouse->GetState().x / (double)Graphics::GetWidth());
 	INSTANCE->y_mouse_pos = ((double)INSTANCE->mouse->GetState().y / (double)Graphics::GetHeight());
 
+	// Final convert to NDC [-1, 1] with [0, 0] being in the middle of the screen.
+	// Y is positive upward and X is positive to the right.
 	INSTANCE->x_mouse_pos = (INSTANCE->x_mouse_pos * 2.0f) - 1.0f;
 	INSTANCE->y_mouse_pos = ((INSTANCE->y_mouse_pos * 2.0f) - 1.0f) * -1.0f;
 
