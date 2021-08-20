@@ -40,7 +40,6 @@ void Engine::RenderDeferred()
 		break;
 	case GameState::INGAME:
 
-		
 		this->sceneHandler.RenderScene();
 		
 		this->renderer.UnbindGeometryPass();
@@ -52,7 +51,7 @@ void Engine::RenderDeferred()
 		EDITSCENE.GetLight()->Cleanup();
 
 
-		MiscRenderer::Render(this->currentCamera->GetParts());
+		MISC_RENDER
 		
 		break;
 	case GameState::INGAME_OPTIONS:

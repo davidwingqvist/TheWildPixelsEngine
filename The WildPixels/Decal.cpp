@@ -152,7 +152,7 @@ Decal::Decal(const std::string&& decal_path, Vector2D& pos)
 	this->CreateVertexBuffer(&pos.x, &pos.y);
 }
 
-Decal::Decal(const std::string&& decal_path, float x, float y, double width, double height)
+Decal::Decal(const std::string&& decal_path, float x, float y, float width, float height)
 {
 	this->vertexBuffer = nullptr;
 	this->indexBuffer = nullptr;
@@ -222,30 +222,13 @@ void Decal::RePosition(float x, float y)
 	Graphics::GetContext()->Unmap(this->vertexBuffer, 0);
 }
 
-void Decal::Render(CamParts& camParts)
+void Decal::Render()
 {
 	UINT stride = sizeof(ScreenVertex);
 	UINT offset = 0;
 	CONTEXT->IASetVertexBuffers(0, 1, &this->vertexBuffer, &stride, &offset);
 	CONTEXT->IASetIndexBuffer(this->indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	CONTEXT->PSSetShaderResources(0, 1, &this->texture->GetShaderView());
-
-	DirectX::XMMATRIX view = DirectX::XMLoadFloat4x4(&camParts.view);
-	DirectX::XMMATRIX projection = DirectX::XMLoadFloat4x4(&camParts.projection);
-
-	DirectX::XMFLOAT4 pos = { position.x, position.y, 0.0f, 1.0f };
-	DirectX::XMVECTOR pos_v = DirectX::XMLoadFloat4(&pos);
-
-	DirectX::XMVector4Transform(pos_v, view);
-	DirectX::XMVector4Transform(pos_v, projection);
-	DirectX::XMStoreFloat4(&pos, pos_v);
-	pos.x /= pos.w;
-	pos.y /= pos.w;
-
-	position.x = pos.x;
-	position.y = pos.y;
-
-	std::cout << "X: " << pos.x << " Y: " << pos.y << "\n";
 
 	/*
 		Draw!!
@@ -259,9 +242,11 @@ const bool Decal::Colliding(float* x, float* y)
 	float x_pos = *(x);
 	float y_pos = *(y);
 
+	/*
 	std::cout << "X: " << x_pos << " Y: " << y_pos << "\n" << "X2: " << position.x
 		<< " Y2: " << position.y << "\n" << "Width: " << position.x + width << " Height: " <<
 		position.y + height << "\n";
+		*/
 
 	if (x_pos >= position.x && x_pos <= position.x + width &&
 		y_pos <= position.y && y_pos >= position.y - height)

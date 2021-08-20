@@ -31,9 +31,9 @@ public:
 	static void AddRenderObject(Renderable* object);
 	static Renderable* GetRenderObject(unsigned int pos);
 	static int GetVectorSize();
-	static void Render(CamParts& camParts);
+	static void Render();
 };
 
-#define ADD_MISC_REND(renderObject) MiscRenderer::AddRenderObject(renderObject);
-#define GET_MISC_RENDER(type, pos) dynamic_cast<type*>(MiscRenderer::GetRenderObject(pos));
+#define ADD_MISC_REND(renderObject) MiscRenderer::AddRenderObject(renderObject)
+#define GET_MISC_RENDER(type, pos) dynamic_cast<type*>(MiscRenderer::GetRenderObject(pos))
 #define MISC_RENDER MiscRenderer::Render();

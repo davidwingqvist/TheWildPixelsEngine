@@ -14,8 +14,8 @@ private:
 	ID3D11Buffer* vertexBuffer;
 	ID3D11Buffer* indexBuffer;
 	Vector2D position;
-	double width;
-	double height;
+	float width;
+	float height;
 
 	void CreateTexture(const std::string file_path);
 	bool CreateVertexBuffer(float* x, float* y);
@@ -28,7 +28,7 @@ public:
 	// Create a decal to be rendered at the specified location.
 	Decal(const std::string&& decal_path, float x, float y);
 	Decal(const std::string&& decal_path, Vector2D& pos);
-	Decal(const std::string&& decal_path, float x, float y, double width, double height);
+	Decal(const std::string&& decal_path, float x, float y, float width, float height);
 
 	Decal();
 	virtual ~Decal() override;
@@ -36,8 +36,10 @@ public:
 	void Resize(float width, float height);
 	void RePosition(float x, float y);
 
-	virtual void Render(CamParts& camParts) override;
+	virtual void Render() override;
 
-	// Inherited via Renderable
+	/*
+		Keep in mind that coordinates needs to be in NDC space.
+	*/
 	virtual const bool Colliding(float* x, float* y) override;
 };
