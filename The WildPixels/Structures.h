@@ -48,6 +48,27 @@ struct Vector2D
 	}
 };
 
+struct Vector3D
+{
+	float x;
+	float y;
+	float z;
+
+	Vector3D(float x, float y, float z)
+	{
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
+
+	Vector3D()
+	{
+		this->x = 0;
+		this->y = 0;
+		this->z = 0;
+	}
+};
+
 struct ScreenVertex
 {
 	DirectX::XMFLOAT3 pos;

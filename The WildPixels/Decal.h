@@ -20,6 +20,8 @@ private:
 	void CreateTexture(const std::string file_path);
 	bool CreateVertexBuffer(float* x, float* y);
 	bool CreateVertexBuffer(float* x, float* y, float width, float height);
+
+	void Unbind();
 public:
 
 	// Create a decal to be rendered at the center of the screen.

@@ -91,11 +91,14 @@
     <Filter Include="Engine\Render\RenderMisc">
       <UniqueIdentifier>{f78faf8b-b661-4f8c-a256-f688790b8cf6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Render\RenderMisc\hlsl">
-      <UniqueIdentifier>{12d74154-114e-49c5-8364-586c06ba54b1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Helper Math">
       <UniqueIdentifier>{2dda43ca-1dee-49b6-8fb8-3cd01e193441}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Render\RenderMisc\UI Elements">
+      <UniqueIdentifier>{9b705450-2245-4ae3-af1e-0497f2f03ed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Render\RenderMisc\Shaders">
+      <UniqueIdentifier>{12d74154-114e-49c5-8364-586c06ba54b1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -159,9 +162,6 @@
     <ClCompile Include="Light.cpp">
       <Filter>Engine\Light</Filter>
     </ClCompile>
-    <ClCompile Include="Decal.cpp">
-      <Filter>Engine\Render\RenderMisc</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Engine\Render</Filter>
     </ClCompile>
@@ -170,6 +170,15 @@
     </ClCompile>
     <ClCompile Include="MiscRenderHandler.cpp">
       <Filter>Engine\Render\RenderMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Engine\Render\RenderMisc\UI Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Decal.cpp">
+      <Filter>Engine\Render\RenderMisc\UI Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Engine\Render\RenderMisc\UI Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,9 +257,6 @@
     <ClInclude Include="Light.h">
       <Filter>Engine\Light</Filter>
     </ClInclude>
-    <ClInclude Include="Decal.h">
-      <Filter>Engine\Render\RenderMisc</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Engine\Render</Filter>
     </ClInclude>
@@ -262,6 +268,15 @@
     </ClInclude>
     <ClInclude Include="gamelogic_math.h">
       <Filter>Engine\Helper Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>Engine\Render\RenderMisc\UI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Decal.h">
+      <Filter>Engine\Render\RenderMisc\UI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Engine\Render\RenderMisc\UI Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,10 +299,10 @@
       <Filter>Engine\Render\RenderPasses\Loading Screen Pass</Filter>
     </FxCompile>
     <FxCompile Include="MiscRenderVertexShader.hlsl">
-      <Filter>Engine\Render\RenderMisc\hlsl</Filter>
+      <Filter>Engine\Render\RenderMisc\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="MiscRenderPixelShader.hlsl">
-      <Filter>Engine\Render\RenderMisc\hlsl</Filter>
+      <Filter>Engine\Render\RenderMisc\Shaders</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

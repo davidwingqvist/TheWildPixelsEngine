@@ -1,6 +1,7 @@
 #pragma once
 #include "RenderAble.h"
 #include "Decal.h"
+#include "Canvas.h"
 #include <vector>
 #include <d3d11.h>
 

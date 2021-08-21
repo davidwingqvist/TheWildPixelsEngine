@@ -120,6 +120,10 @@ bool Decal::CreateVertexBuffer(float* x, float* y, float width, float height)
 	return true;
 }
 
+void Decal::Unbind()
+{
+}
+
 Decal::Decal(const std::string&& decal_path)
 {
 	this->vertexBuffer = nullptr;
