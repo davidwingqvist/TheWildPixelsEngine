@@ -21,9 +21,10 @@ private:
 public:
 
 	static bool Initialize(UINT width, UINT height);
-	ID2D1Factory* GetFactory();
+	static ID2D1Factory*& GetFactory();
+	static ID3D10Device*& GetDevice();
 	static void Destroy();
 };
 
 #define FACTORY Graphics2D::GetFactory()
-#define Device2D 0
+#define DEVICE2D Graphics2D::GetDevice()

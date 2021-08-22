@@ -62,6 +62,14 @@ void Graphics::SetUpDevice()
 	hr = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags, directXfeature, 1, D3D11_SDK_VERSION,
 		&swapDesc, &this->swapChain, &this->device, nullptr, &this->context);
 	this->setup_device = false;
+
+	// Get the adapter that was created with the device.
+	IDXGIDevice* pDXGIDevice;
+	hr = this->device->QueryInterface(__uuidof(IDXGIDevice), (void**)&pDXGIDevice);
+	if (pDXGIDevice)
+	{
+		hr = pDXGIDevice->GetAdapter( &this->adapter );
+	}
 }
 
 void Graphics::SetUpBackBuffer()
@@ -162,5 +170,10 @@ ID3D11Device*& Graphics::GetDevice()
 ID3D11DeviceContext*& Graphics::GetContext()
 {
 	return GRAPHICS->context;
+}
+
+IDXGIAdapter*& Graphics::GetAdapter()
+{
+	return GRAPHICS->adapter;
 }
 

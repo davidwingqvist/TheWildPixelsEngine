@@ -5,6 +5,7 @@
 
 #define DEVICE Graphics::GetDevice()
 #define CONTEXT Graphics::GetContext()
+#define ADAPTER Graphics::GetAdapter()
 
 class Graphics
 {
@@ -22,6 +23,7 @@ private:
 	ID3D11DeviceContext* context;
 	ID3D11RenderTargetView* backBufferView;
 	IDXGISwapChain* swapChain;
+	IDXGIAdapter* adapter;
 	Window window;
 	bool setup_device;
 	bool setup_bBuffer;
@@ -36,6 +38,7 @@ public:
 	static void Destroy();
 	static ID3D11Device*& GetDevice();
 	static ID3D11DeviceContext*& GetContext();
+	static IDXGIAdapter*& GetAdapter();
 	static void ClearScreen();
 	static void Present();
 	static UINT GetWidth();

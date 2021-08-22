@@ -21,8 +21,12 @@ Graphics2D::Graphics2D(UINT width, UINT height)
 
 	UINT flags = D3D10_CREATE_DEVICE_BGRA_SUPPORT;
 
+	/*
+		Create a factory for 2D object drawing,
+		Also create a D3D10Device with the same adapter as D3D11 device.
+	*/
 	result = D2D1CreateFactory(D2D1_FACTORY_TYPE_MULTI_THREADED, &this->factory);
-	device_result = D3D10CreateDevice(nullptr, D3D10_DRIVER_TYPE_HARDWARE, nullptr, flags, D3D10_SDK_VERSION, &this->device);
+	device_result = D3D10CreateDevice(ADAPTER, D3D10_DRIVER_TYPE_HARDWARE, nullptr, flags, D3D10_SDK_VERSION, &this->device);
 	// Factory was able to be made. Proceed.
 	if (SUCCEEDED(result) && SUCCEEDED(device_result))
 	{
@@ -70,9 +74,14 @@ bool Graphics2D::Initialize(UINT width, UINT height)
 	return true;
 }
 
-ID2D1Factory* Graphics2D::GetFactory()
+ID2D1Factory*& Graphics2D::GetFactory()
 {
-	return this->factory;
+	return INSTANCE->factory;
+}
+
+ID3D10Device*& Graphics2D::GetDevice()
+{
+	return INSTANCE->device;
 }
 
 void Graphics2D::Destroy()
