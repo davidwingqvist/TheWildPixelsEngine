@@ -60,11 +60,13 @@ void Game::HandleInGameInput()
 			if (decal)
 				if (decal->Colliding(MOUSE_X, MOUSE_Y) && decal->IsClickAble())
 				{
-					decal->RePosition(randomize(-1.0f, 0.0f), randomize(0.0f, 1.0f));
+					//decal->RePosition(randomize(-1.0f, 0.0f), randomize(0.0f, 1.0f));
 				}
 			if (button)
 				if (button->Colliding(MOUSE_X, MOUSE_Y))
+				{
 					button->Toggle();
+				}
 		}
 	}
 
@@ -120,6 +122,7 @@ void Game::LoadMainMenu()
 
 void Game::UI()
 {
+	/*
 	Decal* decal = new Decal("Textures/Theunit.png", .5f, .0f, .25f, .25f);
 	decal->ToggleClickAble(true);
 	ADD_MISC_REND(decal);
@@ -127,6 +130,7 @@ void Game::UI()
 	Decal* decal2 = new Decal("Textures/buffercat.jpg", -1.0f, 1.0f, .25f, .25f);
 	decal2->ToggleClickAble(true);
 	ADD_MISC_REND(decal2);
+	*/
 }
 
 Game::Game()
@@ -151,9 +155,16 @@ bool Game::StartUp(HINSTANCE instance, UINT width, UINT height)
 	THREAD_JOB(Game, LoadMainMenu);
 	THREAD_JOB(Game, UI);
 
-	//Canvas* canvas = new Canvas(-0.5f, .5f, 1.0f, 1.0f, .76f, 0.255f, 0.3f);
-	//canvas->ApplyTexture("Textures/bignose.jpg");
-	//ADD_MISC_REND(canvas);
+	Canvas* canvas = new Canvas(-0.5f, .5f, 1.0f, 1.0f, .76f, 0.255f, 0.3f);
+	canvas->ApplyTexture("Textures/bignose.jpg");
+	ADD_MISC_REND(canvas);
+
+	Button* button = new Button(-0.25f, 0.25f);
+	button->ApplyTexture("Textures/not_pressed.jpg");
+	button->ToggledTexture("Textures/is_pressed.jpg");
+	button->SetAsToggle();
+
+	ADD_MISC_REND(button);
 
     return true;
 }

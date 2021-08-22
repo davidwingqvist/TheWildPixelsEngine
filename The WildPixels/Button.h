@@ -18,9 +18,11 @@ private:
 	ID3D11Buffer* colorBuffer = nullptr;
 	Vector2D position;
 	Vector3D color = {1.0f, 1.0f, 1.0f};
-	Vector3D toggledColor = { 1.0f, 1.0f, 1.0f };
-	float width = 0.5f;
-	float height = 0.5f;
+	Vector3D toggledColor = { .0f, .0f, .0f };
+	float width = 0.35f;
+	float height = 0.25f;
+
+	std::string text;
 
 	// Set if the button should be a toggle.
 	bool isToggle = false;
@@ -34,6 +36,7 @@ private:
 public:
 
 	Button();
+	Button(float x, float y);
 	virtual ~Button() override;
 	// Set this specific button as a toggle on/off.
 	void SetAsToggle();
@@ -62,4 +65,6 @@ public:
 	*/
 	void ToggledColor(Vector3D& color);
 	void ToggledColor(float red, float green, float blue);
+
+	void SetText(const std::string&& text);
 };

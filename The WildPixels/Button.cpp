@@ -89,6 +89,13 @@ Button::Button()
     this->CreateVertex();
 }
 
+Button::Button(float x, float y)
+{
+    this->position.x = x;
+    this->position.y = y;
+    this->CreateVertex();
+}
+
 Button::~Button()
 {
     if (this->vertexBuffer)
@@ -148,7 +155,7 @@ void Button::Render()
     */
     if (this->isToggle)
     {
-        if (this->isToggledPressed)
+        if (!this->isToggledPressed)
         {
             if (this->texture)
                 CONTEXT->PSSetShaderResources(0, 1, &this->texture->GetShaderView());
@@ -219,4 +226,9 @@ void Button::ToggledColor(float red, float green, float blue)
     this->toggledColor.y = green;
     this->toggledColor.z = blue;
     //this->UpdateBuffer(true);
+}
+
+void Button::SetText(const std::string&& text)
+{
+    this->text = text;
 }
