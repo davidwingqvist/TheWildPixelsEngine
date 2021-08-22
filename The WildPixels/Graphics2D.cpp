@@ -177,7 +177,7 @@ IDWriteTextFormat* Graphics2D::CreateTextFormat(float font_size)
 void Graphics2D::Draw(const std::string&& text, IDWriteTextFormat* format)
 {
 
-	if (INSTANCE->windowTarget)
+	if (INSTANCE->backBufferView)
 	{
 		IDWriteTextFormat* current_format = INSTANCE->defaultFormat;
 		if (format)
@@ -217,6 +217,43 @@ void Graphics2D::Draw(const std::string&& text, IDWriteTextFormat* format)
 
 void Graphics2D::Draw(std::string&& text, float x, float y, IDWriteTextFormat* format)
 {
+	
+	if (INSTANCE->backBufferView)
+	{
+		IDWriteTextFormat* current_format = INSTANCE->defaultFormat;
+		if (format)
+			current_format = format;
+
+		RECT rc;
+		GetClientRect(Graphics::GetWindow(), &rc);
+		D2D1_RECT_F layoutRect = D2D1::RectF(
+			static_cast<FLOAT>(x),
+			static_cast<FLOAT>(y),
+			static_cast<FLOAT>(current_format->GetFontSize() * text.length() + x),
+			static_cast<FLOAT>(current_format->GetFontSize() + y)
+		);
+
+		const char* t = text.c_str();
+		const WCHAR* pwcsName;
+		int nChars = MultiByteToWideChar(CP_ACP, 0, t, -1, NULL, 0);
+		pwcsName = new WCHAR[nChars];
+		MultiByteToWideChar(CP_ACP, 0, t, -1, (LPWSTR)pwcsName, nChars);
+
+		INSTANCE->backBufferView->BeginDraw();
+		//INSTANCE->backBufferView->Clear(D2D1::ColorF(D2D1::ColorF::Black));
+		INSTANCE->backBufferView->SetTransform(D2D1::IdentityMatrix());
+
+		INSTANCE->backBufferView->DrawTextW(pwcsName,
+			(UINT32)text.length(),
+			current_format,
+			layoutRect,
+			INSTANCE->defaultBrush
+		);
+
+		HRESULT hr = INSTANCE->backBufferView->EndDraw();
+
+		delete[] pwcsName;
+	}
 }
 
 void Graphics2D::Destroy()

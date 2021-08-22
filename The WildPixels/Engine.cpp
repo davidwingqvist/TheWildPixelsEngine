@@ -49,6 +49,7 @@ void Engine::RenderDeferred()
 		EDITSCENE.GetLight()->Cleanup();
 
 		Graphics2D::Draw("This text is rendered in-game!!");
+		Graphics2D::Draw("Main Menu", 0, 0);
 
 		MISC_RENDER;
 		
@@ -107,7 +108,7 @@ bool Engine::SetUp(HINSTANCE instance, UINT width, UINT height)
 	this->RedirectIoToConsole();
 //#endif
 
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	// If you don't want multithreading, simply put "amount" to 0.
 	MultiThreader::Init(availableCores - 1, ThreadType::POOL_FIFO);
 	ResourceManager::Initialize();
