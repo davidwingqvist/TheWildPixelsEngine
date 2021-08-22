@@ -155,16 +155,20 @@ bool Game::StartUp(HINSTANCE instance, UINT width, UINT height)
 	THREAD_JOB(Game, LoadMainMenu);
 	THREAD_JOB(Game, UI);
 
+	/*
 	Canvas* canvas = new Canvas(-0.5f, .5f, 1.0f, 1.0f, .76f, 0.255f, 0.3f);
 	canvas->ApplyTexture("Textures/bignose.jpg");
 	ADD_MISC_REND(canvas);
+	*/
 
+	/*
 	Button* button = new Button(-0.25f, 0.25f);
 	button->ApplyTexture("Textures/not_pressed.jpg");
 	button->ToggledTexture("Textures/is_pressed.jpg");
 	button->SetAsToggle();
 
 	ADD_MISC_REND(button);
+	*/
 
     return true;
 }

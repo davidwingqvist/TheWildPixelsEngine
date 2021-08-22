@@ -21,6 +21,13 @@ Graphics2D::Graphics2D(UINT width, UINT height)
 
 	UINT flags = D3D10_CREATE_DEVICE_BGRA_SUPPORT;
 
+#ifdef _DEBUG
+
+	flags = D3D10_CREATE_DEVICE_BGRA_SUPPORT | D3D10_CREATE_DEVICE_DEBUG;
+
+#endif
+
+	
 	/*
 		Create a factory for 2D object drawing,
 		Also create a D3D10Device with the same adapter as D3D11 device.
@@ -58,6 +65,8 @@ Graphics2D::~Graphics2D()
 		this->renderTarget->Release();
 	if (this->surface)
 		this->surface->Release();
+	if (this->device)
+		this->device->Release();
 }
 
 bool Graphics2D::Initialize(UINT width, UINT height)

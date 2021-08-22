@@ -116,7 +116,8 @@ bool Engine::SetUp(HINSTANCE instance, UINT width, UINT height)
 	if (!Graphics::Initialize(instance, width, height))
 		return false;
 
-	Graphics2D::Initialize(width, height);
+	if (!Graphics2D::Initialize(width, height))
+		return false;
 
 	if (!this->renderer.Initialize())
 		return false;

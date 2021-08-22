@@ -69,6 +69,7 @@ void Graphics::SetUpDevice()
 	if (pDXGIDevice)
 	{
 		hr = pDXGIDevice->GetAdapter( &this->adapter );
+		pDXGIDevice->Release();
 	}
 }
 
@@ -154,6 +155,8 @@ void Graphics::Destroy()
 	GRAPHICS->context->Flush();
 	if (GRAPHICS->context)
 		GRAPHICS->context->Release();
+	if (GRAPHICS->adapter)
+		GRAPHICS->adapter->Release();
 	if (GRAPHICS->device)
 		GRAPHICS->device->Release();
 
