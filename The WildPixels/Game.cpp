@@ -56,11 +56,15 @@ void Game::HandleInGameInput()
 		for (unsigned int i = 0; i < (unsigned int)MiscRenderer::GetVectorSize(); i++)
 		{
 			Decal* decal = GET_MISC_RENDER(Decal, i);
+			Button* button = GET_MISC_RENDER(Button, i);
 			if (decal)
 				if (decal->Colliding(MOUSE_X, MOUSE_Y) && decal->IsClickAble())
 				{
 					decal->RePosition(randomize(-1.0f, 0.0f), randomize(0.0f, 1.0f));
 				}
+			if (button)
+				if (button->Colliding(MOUSE_X, MOUSE_Y))
+					button->Toggle();
 		}
 	}
 
@@ -102,10 +106,6 @@ void Game::LoadMainMenu()
 	//LightStruct L = {};
 	//EDITSCENE.AddLight(L);
 
-	Decal* decal = new Decal("Textures/Theunit.png", .5f, .0f, .25f, .25f);
-	decal->ToggleClickAble(true);
-	ADD_MISC_REND(decal);
-
 	Camera* cam = new Camera();
 	cam->Preset();
 	Engine::SetCamera(cam);
@@ -116,6 +116,17 @@ void Game::LoadMainMenu()
 //#endif
 
 	SetLoadingStatus(false);
+}
+
+void Game::UI()
+{
+	Decal* decal = new Decal("Textures/Theunit.png", .5f, .0f, .25f, .25f);
+	decal->ToggleClickAble(true);
+	ADD_MISC_REND(decal);
+
+	Decal* decal2 = new Decal("Textures/buffercat.jpg", -1.0f, 1.0f, .25f, .25f);
+	decal2->ToggleClickAble(true);
+	ADD_MISC_REND(decal2);
 }
 
 Game::Game()
@@ -138,10 +149,11 @@ bool Game::StartUp(HINSTANCE instance, UINT width, UINT height)
 
 	//Engine::ClearResources();
 	THREAD_JOB(Game, LoadMainMenu);
+	THREAD_JOB(Game, UI);
 
-	Canvas* canvas = new Canvas(-0.5f, .5f, 1.0f, 1.0f, .76f, 0.255f, 0.3f);
-	canvas->ApplyTexture("Textures/bignose.jpg");
-	ADD_MISC_REND(canvas);
+	//Canvas* canvas = new Canvas(-0.5f, .5f, 1.0f, 1.0f, .76f, 0.255f, 0.3f);
+	//canvas->ApplyTexture("Textures/bignose.jpg");
+	//ADD_MISC_REND(canvas);
 
     return true;
 }

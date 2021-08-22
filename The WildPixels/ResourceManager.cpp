@@ -1,4 +1,7 @@
 #include "ResourceManager.h"
+#include <mutex>
+
+std::mutex manager_mtx;
 
 ResourceManager* ResourceManager::instance = nullptr;
 #define MANAGER ResourceManager::instance
@@ -41,62 +44,53 @@ void ResourceManager::Destroy()
 
 Resource* ResourceManager::GetResource(std::string&& regName)
 {
-	// Sync with threads.
-	while (MANAGER->lockManager > 0);
-
-	MANAGER->lockClearCache++;
 	if ((int)MANAGER->resources.size() > 0)
 	{
+		manager_mtx.lock();
 		auto rs = MANAGER->resources.find(regName);
-
 		if (rs != MANAGER->resources.end())
 		{
-			MANAGER->lockClearCache = 0;
+			manager_mtx.unlock();
 			return rs->second;
 		}
 		else
-		{	// No resource found.
-			MANAGER->lockClearCache = 0;
+		{
+			manager_mtx.unlock();
 			return nullptr;
 		}
 	}
 	else
-	{	// Either no size or manager is currently locked.
-		MANAGER->lockClearCache = 0;
+	{
 		return nullptr;
 	}
-	MANAGER->lockClearCache = 0;
 }
 
 void ResourceManager::InsertResource(Resource* resource, std::string &&regName)
 {
-	// Sync with threads.
-	while (MANAGER->lockManager > 0);
-	MANAGER->lockClearCache++;
 	if ((int)MANAGER->resources.size() >= 0)
 	{
+		manager_mtx.lock();
 		auto rs = MANAGER->resources.find(regName);
 
 		if (rs == MANAGER->resources.end())
 		{
 			MANAGER->resources.emplace(regName, resource);
-			MANAGER->lockClearCache = 0;
 		}
 		else
 		{
 			delete rs->second;
 			MANAGER->resources.erase(regName);
 			MANAGER->resources.emplace(regName, resource);
-			MANAGER->lockClearCache = 0;
 		}
+		manager_mtx.unlock();
 	}
-	MANAGER->lockClearCache = 0;
 }
 
 void ResourceManager::RemoveResource(std::string&& regName)
 {
 	if ((int)MANAGER->resources.size() > 0)
 	{
+		manager_mtx.lock();
 		auto rs = MANAGER->resources.find(regName);
 
 		if (rs != MANAGER->resources.end())
@@ -104,15 +98,13 @@ void ResourceManager::RemoveResource(std::string&& regName)
 			delete rs->second;
 			MANAGER->resources.erase(regName);
 		}
+		manager_mtx.unlock();
 	}
 }
 
 void ResourceManager::ClearCache()
 {
-	MANAGER->lockManager++;
-
-	while (MANAGER->lockClearCache > 0);
-
+	manager_mtx.lock();
 	for (auto it = MANAGER->resources.begin(); it != MANAGER->resources.end(); it++)
 	{
 		if (it->second)
@@ -121,6 +113,5 @@ void ResourceManager::ClearCache()
 		}
 	}
 	MANAGER->resources.clear();
-
-	MANAGER->lockManager = 0;
+	manager_mtx.unlock();
 }

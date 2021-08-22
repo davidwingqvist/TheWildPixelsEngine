@@ -188,6 +188,7 @@
     <ClInclude Include="MiscRenderHandler.h" />
     <ClInclude Include="multi_thread_manager.h" />
     <ClInclude Include="OptionsManager.h" />
+    <ClInclude Include="PhysicsConstants.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ReadFromObj.h" />
     <ClInclude Include="RenderAble.h" />

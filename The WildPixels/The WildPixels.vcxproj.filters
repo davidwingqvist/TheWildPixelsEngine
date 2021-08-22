@@ -100,6 +100,9 @@
     <Filter Include="Engine\Render\RenderMisc\Shaders">
       <UniqueIdentifier>{12d74154-114e-49c5-8364-586c06ba54b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{95a382e0-d3ea-482a-93b3-9ca09f66ba97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -277,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>Engine\Render\RenderMisc\UI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsConstants.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

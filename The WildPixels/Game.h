@@ -22,6 +22,7 @@ private:
 	EnemyManager enemyManager;
 
 	void LoadMainMenu();
+	void UI();
 
 public:
 	

@@ -2,27 +2,64 @@
 #include "RenderAble.h"
 #include "Texture.h"
 #include <d3d11.h>
+#include "Structures.h"
 
+/*
+	Create a square button presented in 2D on the screen.
+*/
 class Button : public Renderable
 {
 private:
 
 	Texture* texture = nullptr;
+	Texture* toggledTexture = nullptr;
 	ID3D11Buffer* vertexBuffer = nullptr;
 	ID3D11Buffer* indexBuffer = nullptr;
+	ID3D11Buffer* colorBuffer = nullptr;
+	Vector2D position;
+	Vector3D color = {1.0f, 1.0f, 1.0f};
+	Vector3D toggledColor = { 1.0f, 1.0f, 1.0f };
+	float width = 0.5f;
+	float height = 0.5f;
 
-	bool activate = false;
+	// Set if the button should be a toggle.
+	bool isToggle = false;
+
+	// Check if the button is toggled/pressed.
+	bool isToggledPressed = false;
+
+	void UpdateBuffer(const bool&& useColor);
+
+	bool CreateVertex();
 public:
 
 	Button();
 	virtual ~Button() override;
+	// Set this specific button as a toggle on/off.
+	void SetAsToggle();
+	// Set this specific button as press once and done deal.
+	void SetAsPress();
 
-	// Use this at the beginning of press action.
-	void Press();
+	// Register the button as pressed.
+	void Toggle();
 
-	// Use this to end the press action.
-	void End();
+	void ApplyTexture(const std::string&& filePath);
+	void ApplyColor(Vector3D& color);
+	void ApplyColor(float red, float green, float blue);
+
 	virtual void Render() override;
 	virtual const bool Colliding(float* x, float* y) override;
 
+	/*
+		Functions to use when the button is set to toggled.
+	*/
+
+	// Set the texture to switch to when pressed during a toggled state.
+	void ToggledTexture(const std::string&& filePath);
+
+	/*
+		Set the color when on a toggled state.
+	*/
+	void ToggledColor(Vector3D& color);
+	void ToggledColor(float red, float green, float blue);
 };

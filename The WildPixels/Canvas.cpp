@@ -172,9 +172,29 @@ void Canvas::ApplyColor(Vector3D& color)
     this->UpdateBuffer(true);
 }
 
+void Canvas::ApplyColor(float red, float green, float blue)
+{
+    this->color.x = red;
+    this->color.y = green;
+    this->color.z = blue;
+
+    this->UpdateBuffer(true);
+}
+
 void Canvas::ApplyDecal(Decal* decal, int pos)
 {
-    this->decals[pos] = decal;
+    if (pos >= decal_amount || pos < 0)
+        return;
+    else
+        this->decals[pos] = decal;
+}
+
+void Canvas::ApplyButton(Button* button, int pos)
+{
+    if (pos >= button_amount || pos < 0)
+        return;
+    else
+        this->buttons[pos] = button;
 }
 
 void Canvas::RePosition(float* x, float* y)
@@ -227,6 +247,18 @@ void Canvas::Render()
     ID3D11Buffer* nullBuff = nullptr;
     CONTEXT->PSSetConstantBuffers(0, 1, &nullBuff);
     CONTEXT->OMSetBlendState(nullState, NULL, 0xffffffff);
+
+    for (int i = 0; i < button_amount; i++)
+    {
+        if (this->buttons[i])
+            this->buttons[i]->Render();
+    }
+
+    for (int i = 0; i < decal_amount; i++)
+    {
+        if (this->decals[i])
+            this->decals[i]->Render();
+    }
 }
 
 const bool Canvas::Colliding(float* x, float* y)
