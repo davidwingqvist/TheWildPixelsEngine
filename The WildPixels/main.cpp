@@ -11,8 +11,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int       nCmdShow)
 {
 	Game game;
-	UINT width = 1920;
-	UINT height = 1080;
+	UINT width = 1080;
+	UINT height = 720;
 
 	// Disables the notification of program being "unresponsive" but its only loading shit.
 	DisableProcessWindowsGhosting();

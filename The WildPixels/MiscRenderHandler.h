@@ -38,4 +38,4 @@ public:
 
 #define ADD_MISC_REND(renderObject) MiscRenderer::AddRenderObject(renderObject)
 #define GET_MISC_RENDER(type, pos) dynamic_cast<type*>(MiscRenderer::GetRenderObject(pos))
-#define MISC_RENDER MiscRenderer::Render();
+#define MISC_RENDER MiscRenderer::Render()

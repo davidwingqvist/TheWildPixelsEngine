@@ -11,6 +11,8 @@ Graphics::Graphics()
 	this->device = nullptr;
 	this->context = nullptr;
 	this->swapChain = nullptr;
+	this->adapter = nullptr;
+	this->keyedMutex = nullptr;
 	this->backBufferView = nullptr;
 	this->winHeight = 0;
 	this->winWidth = 0;

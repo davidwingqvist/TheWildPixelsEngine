@@ -23,14 +23,15 @@ void Engine::RenderDeferred()
 
 	begin = omp_get_wtime();
 	Graphics::ClearScreen();
+	//Graphics2D::Clear();
 	end = omp_get_wtime() - begin;
 	//std::cout << "Time: " << end << "\n";
 
-	this->renderer.PrepareGeometryPass();
+	//this->renderer.PrepareGeometryPass();
 
 	
 	if (this->currentCamera != nullptr)
-		this->currentCamera->Render();
+		//this->currentCamera->Render();
 	
 
 	switch (this->currentState)
@@ -39,18 +40,20 @@ void Engine::RenderDeferred()
 		break;
 	case GameState::INGAME:
 
-		this->sceneHandler.RenderScene();
+		//this->sceneHandler.RenderScene();
 		
-		this->renderer.UnbindGeometryPass();
+		//this->renderer.UnbindGeometryPass();
 		
 		
+		/*
 		EDITSCENE.GetLight()->Render();
 		this->renderer.RenderLightPass();
 		this->renderer.UnbindLightPass();
 		EDITSCENE.GetLight()->Cleanup();
 
 
-		MISC_RENDER
+		MISC_RENDER;
+		*/
 		
 		break;
 	case GameState::INGAME_OPTIONS:
@@ -64,8 +67,9 @@ void Engine::RenderDeferred()
 	}
 
 	
-	Graphics::Present();
-	
+	//Graphics::Present();
+
+	Graphics2D::Draw("This text is rendered in-game!!");
 }
 
 // ---------FORWARD----------
@@ -211,8 +215,8 @@ bool Engine::HandleExceptionRendering()
 {
 	if (IsLoading())
 	{
-		Engine::RenderLoading();
-		Graphics::Present();
+		//Engine::RenderLoading();
+		//Graphics::Present();
 		return true;
 	}
 

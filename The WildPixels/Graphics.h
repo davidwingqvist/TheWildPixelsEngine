@@ -24,6 +24,7 @@ private:
 	ID3D11RenderTargetView* backBufferView;
 	IDXGISwapChain* swapChain;
 	IDXGIAdapter* adapter;
+	IDXGIKeyedMutex* keyedMutex;
 	Window window;
 	bool setup_device;
 	bool setup_bBuffer;
