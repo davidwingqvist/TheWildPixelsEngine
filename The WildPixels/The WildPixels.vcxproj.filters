@@ -183,6 +183,9 @@
     <ClCompile Include="Button.cpp">
       <Filter>Engine\Render\RenderMisc\UI Elements</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics2D.cpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -283,6 +286,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsConstants.h">
       <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics2D.h">
+      <Filter>Engine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -88,6 +88,7 @@ Engine::Engine()
 Engine::~Engine()
 {
 	Graphics::Destroy();
+	Graphics2D::Destroy();
 	MultiThreader::Destroy();
 	ResourceManager::Destroy();
 	MiscRenderer::Destroy();
@@ -114,6 +115,8 @@ bool Engine::SetUp(HINSTANCE instance, UINT width, UINT height)
 
 	if (!Graphics::Initialize(instance, width, height))
 		return false;
+
+	Graphics2D::Initialize(width, height);
 
 	if (!this->renderer.Initialize())
 		return false;

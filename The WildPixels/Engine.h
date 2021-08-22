@@ -3,6 +3,7 @@
 #include <omp.h>
 #include "Renderer.h"
 #include "Graphics.h"
+#include "Graphics2D.h"
 #include "GameState.h"
 #include "Player.h"
 #include "SceneManager.h"
