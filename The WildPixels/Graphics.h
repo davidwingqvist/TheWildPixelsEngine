@@ -40,6 +40,7 @@ public:
 	static ID3D11Device*& GetDevice();
 	static ID3D11DeviceContext*& GetContext();
 	static IDXGIAdapter*& GetAdapter();
+	static IDXGISwapChain*& GetSwapChain();
 	static void ClearScreen();
 	static void Present();
 	static UINT GetWidth();

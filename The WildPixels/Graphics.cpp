@@ -30,10 +30,10 @@ void Graphics::SetUpDevice()
 	HRESULT hr;
 
 	// Debug mode
-	UINT flags = 0;
+	UINT flags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 
 #ifdef _DEBUG
-		flags = D3D11_CREATE_DEVICE_DEBUG;
+		flags = D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 #endif
 
 	// Change this feature level to change DirectX version, Most stable is DirectX11
@@ -42,7 +42,7 @@ void Graphics::SetUpDevice()
 
 	swapDesc.BufferDesc.RefreshRate.Numerator = 0;
 	swapDesc.BufferDesc.RefreshRate.Denominator = 1;
-	swapDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM;
+	swapDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_B8G8R8A8_UNORM;
 	swapDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	swapDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 	swapDesc.BufferDesc.Width = this->winWidth;
@@ -180,5 +180,10 @@ ID3D11DeviceContext*& Graphics::GetContext()
 IDXGIAdapter*& Graphics::GetAdapter()
 {
 	return GRAPHICS->adapter;
+}
+
+IDXGISwapChain*& Graphics::GetSwapChain()
+{
+	return GRAPHICS->swapChain;
 }
 

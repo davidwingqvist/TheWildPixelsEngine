@@ -20,7 +20,7 @@ Graphics2D* Graphics2D::instance = nullptr;
 
 Graphics2D::Graphics2D(UINT width, UINT height)
 {
-	HRESULT result, device_result, hr;
+	HRESULT result, hr;
 	this->winHeight = height;
 	this->winWidth = width;
 
@@ -28,7 +28,7 @@ Graphics2D::Graphics2D(UINT width, UINT height)
 
 #ifdef _DEBUG
 
-	flags = D3D10_CREATE_DEVICE_BGRA_SUPPORT | D3D10_CREATE_DEVICE_DEBUG;
+	flags = D3D10_CREATE_DEVICE_DEBUG | D3D10_CREATE_DEVICE_BGRA_SUPPORT;
 
 #endif
 
@@ -39,28 +39,35 @@ Graphics2D::Graphics2D(UINT width, UINT height)
 		Create a factory for 2D object drawing,
 		Also create a D3D10Device with the same adapter as D3D11 device.
 	*/
-	result = D2D1CreateFactory(D2D1_FACTORY_TYPE_MULTI_THREADED, &this->factory);
+	D2D1_FACTORY_OPTIONS options;
+
+#ifdef _DEBUG
+	options.debugLevel = D2D1_DEBUG_LEVEL_INFORMATION;
+#else
+	options.debugLevel = 0;
+#endif
+
+	result = D2D1CreateFactory(D2D1_FACTORY_TYPE_MULTI_THREADED, options, &this->factory);
 	//device_result = D3D10CreateDevice(ADAPTER, D3D10_DRIVER_TYPE_HARDWARE, nullptr, flags, D3D10_SDK_VERSION, &this->device);
 	// Factory was able to be made. Proceed.
 	if (SUCCEEDED(result))
 	{
-		DXGI_SURFACE_DESC sDesc;
-		sDesc.Height = height;
-		sDesc.Width = width;
-		sDesc.Format = DXGI_FORMAT_R32G32B32A32_UINT;
-		sDesc.SampleDesc.Count = 1;
-		sDesc.SampleDesc.Quality = 0;
+		Graphics::GetSwapChain()->GetBuffer(0, IID_PPV_ARGS(&this->surface));
+		FLOAT dpiX;
+		FLOAT dpiY;
+		dpiX = (FLOAT)GetDpiForWindow(Graphics::GetWindow());
+		dpiY = dpiX;
 
-		D2D1_RENDER_TARGET_PROPERTIES rProp;
-		rProp.type = D2D1_RENDER_TARGET_TYPE_DEFAULT;
-		rProp.dpiX = 0;
-		rProp.dpiY = 0;
-		rProp.usage = D2D1_RENDER_TARGET_USAGE_GDI_COMPATIBLE;
-		rProp.pixelFormat.format = DXGI_FORMAT_R32G32B32A32_UINT;
-		rProp.pixelFormat.alphaMode = D2D1_ALPHA_MODE_IGNORE;
-		rProp.minLevel = D2D1_FEATURE_LEVEL_DEFAULT;
-		
-		//this->factory->CreateDxgiSurfaceRenderTarget(this->surface, rProp, &this->renderTarget);
+		D2D1_RENDER_TARGET_PROPERTIES props =
+			D2D1::RenderTargetProperties(
+				D2D1_RENDER_TARGET_TYPE_DEFAULT,
+				D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED),
+				dpiX,
+				dpiY
+			);
+
+		hr = this->factory->CreateDxgiSurfaceRenderTarget(this->surface, &props, &this->backBufferView);
+
 
 		RECT rc;
 		GetClientRect(Graphics::GetWindow(), &rc);
@@ -74,7 +81,7 @@ Graphics2D::Graphics2D(UINT width, UINT height)
 
 		if (SUCCEEDED(hr))
 		{
-			this->windowTarget->CreateSolidColorBrush(D2D1::ColorF(1.0f, 1.0f, 1.0f), &this->defaultBrush);
+			this->backBufferView->CreateSolidColorBrush(D2D1::ColorF(1.0f, 1.0f, 1.0f), &this->defaultBrush);
 		}
 
 		hr = this->writeFactory->CreateTextFormat(
@@ -100,8 +107,8 @@ Graphics2D::~Graphics2D()
 {
 	if (this->factory)
 		this->factory->Release();
-	if (this->renderTarget)
-		this->renderTarget->Release();
+	if (this->backBufferView)
+		this->backBufferView->Release();
 	if (this->surface)
 		this->surface->Release();
 	if (this->device)
@@ -191,21 +198,25 @@ void Graphics2D::Draw(const std::string&& text, IDWriteTextFormat* format)
 		pwcsName = new WCHAR[nChars];
 		MultiByteToWideChar(CP_ACP, 0, t, -1, (LPWSTR)pwcsName, nChars);
 
-		INSTANCE->windowTarget->BeginDraw();
-		INSTANCE->windowTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
-		INSTANCE->windowTarget->SetTransform(D2D1::IdentityMatrix());
+		INSTANCE->backBufferView->BeginDraw();
+		//INSTANCE->backBufferView->Clear(D2D1::ColorF(D2D1::ColorF::Black));
+		INSTANCE->backBufferView->SetTransform(D2D1::IdentityMatrix());
 
-		INSTANCE->windowTarget->DrawTextW(pwcsName,
+		INSTANCE->backBufferView->DrawTextW(pwcsName,
 			(UINT32)text.length(),
 			current_format,
 			layoutRect,
 			INSTANCE->defaultBrush
 		);
 
-		HRESULT hr = INSTANCE->windowTarget->EndDraw();
+		HRESULT hr = INSTANCE->backBufferView->EndDraw();
 
 		delete[] pwcsName;
 	}
+}
+
+void Graphics2D::Draw(std::string&& text, float x, float y, IDWriteTextFormat* format)
+{
 }
 
 void Graphics2D::Destroy()
