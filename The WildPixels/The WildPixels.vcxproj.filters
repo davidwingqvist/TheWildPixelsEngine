@@ -62,9 +62,6 @@
     <Filter Include="Current\Engine\Camera">
       <UniqueIdentifier>{39e560a0-996f-4533-8703-087a206750cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Current\Engine\Options">
-      <UniqueIdentifier>{b523356e-473b-42f3-b7c2-cc8a48d7c5c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Current\Engine\Light">
       <UniqueIdentifier>{c06c3309-8e79-4679-bfc2-0508c132460d}</UniqueIdentifier>
     </Filter>
@@ -107,6 +104,9 @@
     </Filter>
     <Filter Include="Prototype">
       <UniqueIdentifier>{b7df269e-012a-49a6-ac37-6be561ee8328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Current\Settings">
+      <UniqueIdentifier>{d1f1e57a-f277-4ea2-974e-685647774038}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +194,9 @@
     <ClCompile Include="Text2D.cpp">
       <Filter>Current\Engine\Render\RenderMisc\UI Elements</Filter>
     </ClCompile>
+    <ClCompile Include="SettingMaster.cpp">
+      <Filter>Current\Settings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -265,9 +268,6 @@
     <ClInclude Include="InputHandler.h">
       <Filter>Current\Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="OptionsManager.h">
-      <Filter>Current\Engine\Options</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Current\Engine\Light</Filter>
     </ClInclude>
@@ -300,6 +300,9 @@
     </ClInclude>
     <ClInclude Include="Text2D.h">
       <Filter>Current\Engine\Render\RenderMisc\UI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingMaster.h">
+      <Filter>Current\Settings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -166,6 +166,7 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SettingMaster.cpp" />
     <ClCompile Include="Text2D.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -190,7 +191,6 @@
     <ClInclude Include="MeshObject.h" />
     <ClInclude Include="MiscRenderHandler.h" />
     <ClInclude Include="multi_thread_manager.h" />
-    <ClInclude Include="OptionsManager.h" />
     <ClInclude Include="PhysicsConstants.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ReadFromObj.h" />
@@ -200,6 +200,7 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SettingMaster.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Storage.h" />
     <ClInclude Include="Structures.h" />

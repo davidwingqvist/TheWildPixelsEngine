@@ -22,7 +22,17 @@ Graphics::Graphics()
 
 Graphics::~Graphics()
 {
-
+	if (this->backBufferView)
+		this->backBufferView->Release();
+	if (this->swapChain)
+		this->swapChain->Release();
+	this->context->Flush();
+	if (this->context)
+		this->context->Release();
+	if (this->adapter)
+		this->adapter->Release();
+	if (this->device)
+		this->device->Release();
 }
 
 void Graphics::SetUpDevice()
@@ -132,6 +142,12 @@ void Graphics::SetBackbufferAsTarget()
 
 bool Graphics::Initialize(HINSTANCE instance, UINT width, UINT height)
 {
+	if (GRAPHICS)
+	{
+		delete GRAPHICS;
+		GRAPHICS = nullptr;
+	}
+
 	if (!GRAPHICS)
 	{
 		GRAPHICS = new Graphics;
@@ -150,18 +166,6 @@ bool Graphics::Initialize(HINSTANCE instance, UINT width, UINT height)
 
 void Graphics::Destroy()
 {
-	if (GRAPHICS->backBufferView)
-		GRAPHICS->backBufferView->Release();
-	if (GRAPHICS->swapChain)
-		GRAPHICS->swapChain->Release();
-	GRAPHICS->context->Flush();
-	if (GRAPHICS->context)
-		GRAPHICS->context->Release();
-	if (GRAPHICS->adapter)
-		GRAPHICS->adapter->Release();
-	if (GRAPHICS->device)
-		GRAPHICS->device->Release();
-
 	if (GRAPHICS)
 		delete GRAPHICS;
 }

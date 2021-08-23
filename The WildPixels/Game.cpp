@@ -155,6 +155,7 @@ bool Game::StartUp(HINSTANCE instance, UINT width, UINT height)
 	THREAD_JOB(Game, LoadMainMenu);
 	THREAD_JOB(Game, UI);
 
+	/*
 	Canvas* canvas = new Canvas(-0.5f, .5f, 1.0f, 1.0f, .76f, 0.255f, 0.3f);
 	canvas->ApplyTexture("Textures/bignose.jpg");
 	ADD_MISC_REND(canvas);
@@ -175,6 +176,8 @@ bool Game::StartUp(HINSTANCE instance, UINT width, UINT height)
 	text->SetPosition(-150.0f, 0.0f);
 
 	ADD_MISC_REND(text);
+	*/
+
     return true;
 }
 

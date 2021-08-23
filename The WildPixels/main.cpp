@@ -4,13 +4,14 @@
 #include <io.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include "SettingMaster.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	Game game;
+	Game* game = new Game();
 	UINT width = 1080;
 	UINT height = 720;
 
@@ -20,10 +21,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	
-	if (!game.StartUp(hInstance, width, height))
+	if (!game->StartUp(hInstance, width, height))
 	{
 		//return 0;
 	}
+	SettingMaster::Initialize(hInstance, 1920, 1080);
 
 	MSG msg = { };
 	double currentFrame = 0.f, lastFrame = omp_get_wtime();
@@ -41,7 +43,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		deltaTime = static_cast<float>(currentFrame - lastFrame);
 		if (deltaSum >= targetDelta)
 		{
-			game.Update(deltaSum);
+			game->Update(deltaSum);
 			deltaSum = 0.f;
 		}
 		deltaSum += deltaTime;
