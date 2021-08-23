@@ -1,6 +1,7 @@
 #include "Button.h"
 #include "ResourceManager.h"
 #include "Graphics.h"
+#include <omp.h>
 
 void Button::UpdateBuffer(const bool&& useColor)
 {
@@ -164,6 +165,8 @@ void Button::Render()
         {
             if (this->toggledTexture)
                 CONTEXT->PSSetShaderResources(0, 1, &this->toggledTexture->GetShaderView());
+            else
+                CONTEXT->PSSetShaderResources(0, 1, &this->texture->GetShaderView());
         }
     }
 
@@ -181,6 +184,17 @@ void Button::Render()
     // So that other drawables wont use this button color
     ID3D11Buffer* nullBuff = nullptr;
     CONTEXT->PSSetConstantBuffers(0, 1, &nullBuff);
+
+    if (this->text.length() > 0)
+    {
+        // Convert the positions to range [winHeight, 0] : [winWidth, 0]
+        float y = ((-position.y - (-1)) * (Graphics::GetHeight())) * 0.5f;
+        float x = ((position.x - (-1)) * (Graphics::GetWidth())) * 0.5f;
+
+        float w = ((width - (-1)) * (Graphics::GetWidth())) * 0.5f;
+        float h = ((height - (-1)) * (Graphics::GetHeight())) * 0.5f;
+        Graphics2D::Draw(text, x, y, (x / w) * Graphics::GetWidth(),  (y / h) * Graphics::GetHeight() - y * 0.3f);
+    }
 }
 
 const bool Button::Colliding(float* x, float* y)

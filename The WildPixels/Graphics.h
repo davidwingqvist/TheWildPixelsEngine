@@ -2,6 +2,7 @@
 #include <d3d11.h>
 #include "Window.h"
 #include <iostream>
+#include "Graphics2D.h"
 
 #define DEVICE Graphics::GetDevice()
 #define CONTEXT Graphics::GetContext()

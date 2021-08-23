@@ -33,10 +33,11 @@ public:
 	static IDWriteTextFormat* CreateTextFormat(float font_size);
 
 	// Draw text in the middle of the screen.
-	static void Draw(const std::string&& text, IDWriteTextFormat* format = nullptr);
+	static void Draw(const std::string text, IDWriteTextFormat* format = nullptr);
 
 	// Draw text at the specified x and y position on the screen.
-	static void Draw(std::string&& text, float x, float y, IDWriteTextFormat* format = nullptr);
+	static void Draw(std::string& text, float x, float y, IDWriteTextFormat* format = nullptr);
+	static void Draw(std::string& text, float x, float y, float width, float height, IDWriteTextFormat* format = nullptr);
 	static void Destroy();
 };
 

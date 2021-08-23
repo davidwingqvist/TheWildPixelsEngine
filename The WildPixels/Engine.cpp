@@ -48,8 +48,8 @@ void Engine::RenderDeferred()
 		this->renderer.UnbindLightPass();
 		EDITSCENE.GetLight()->Cleanup();
 
-		Graphics2D::Draw("This text is rendered in-game!!");
-		Graphics2D::Draw("Main Menu", 0, 0);
+		//Graphics2D::Draw("This text is rendered in-game!!");
+		//Graphics2D::Draw("Main Menu", 0, 0);
 
 		MISC_RENDER;
 		
@@ -212,8 +212,8 @@ bool Engine::HandleExceptionRendering()
 {
 	if (IsLoading())
 	{
-		//Engine::RenderLoading();
-		//Graphics::Present();
+		Engine::RenderLoading();
+		Graphics::Present();
 		return true;
 	}
 
