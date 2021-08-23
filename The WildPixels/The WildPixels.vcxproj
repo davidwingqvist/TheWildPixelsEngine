@@ -166,6 +166,7 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Text2D.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -202,6 +203,7 @@
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Storage.h" />
     <ClInclude Include="Structures.h" />
+    <ClInclude Include="Text2D.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

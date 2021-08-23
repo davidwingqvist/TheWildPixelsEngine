@@ -213,6 +213,7 @@ bool Engine::HandleExceptionRendering()
 	if (IsLoading())
 	{
 		Engine::RenderLoading();
+		Graphics2D::Draw("LOADING...");
 		Graphics::Present();
 		return true;
 	}

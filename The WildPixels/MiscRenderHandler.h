@@ -3,6 +3,7 @@
 #include "Decal.h"
 #include "Button.h"
 #include "Canvas.h"
+#include "Text2D.h"
 #include <vector>
 #include <d3d11.h>
 

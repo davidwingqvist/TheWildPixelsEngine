@@ -162,17 +162,19 @@ bool Game::StartUp(HINSTANCE instance, UINT width, UINT height)
 	Button* button = new Button(-.20f, 0.35f);
 	button->ApplyTexture("Textures/black.png");
 	button->SetAsToggle();
-	button->SetText("Main Menu");
 
 	ADD_MISC_REND(button);
 
 	Button* button2 = new Button(-.20f, -.0f);
 	button2->ApplyTexture("Textures/black.png");
 	button2->SetAsToggle();
-	button2->SetText("Continue");
 
 	ADD_MISC_REND(button2);
 
+	Text2D* text = new Text2D("Text2D class object!");
+	text->SetPosition(-150.0f, 0.0f);
+
+	ADD_MISC_REND(text);
     return true;
 }
 
