@@ -92,10 +92,6 @@
     <Filter Include="Current\Engine\Helper Math">
       <UniqueIdentifier>{2dda43ca-1dee-49b6-8fb8-3cd01e193441}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Current\Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Current\Window">
       <UniqueIdentifier>{e6e13b9f-6201-49ca-be1d-ae09a8e6b68c}</UniqueIdentifier>
     </Filter>
@@ -108,11 +104,12 @@
     <Filter Include="Current\Settings">
       <UniqueIdentifier>{d1f1e57a-f277-4ea2-974e-685647774038}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Current\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Current\Game</Filter>
     </ClCompile>
@@ -196,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="SettingMaster.cpp">
       <Filter>Current\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

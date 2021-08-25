@@ -20,12 +20,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+	//texture2->GetResource(__uuidof(ID3D11Texture2D), (void**)&texture2->texture);
 	
 	if (!game->StartUp(hInstance, width, height))
 	{
 		//return 0;
 	}
-	SettingMaster::Initialize(hInstance, 1920, 1080);
+	//SettingMaster::Initialize(hInstance, 1920, 1080);
 
 	MSG msg = { };
 	double currentFrame = 0.f, lastFrame = omp_get_wtime();
@@ -50,5 +51,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		lastFrame = currentFrame;
 	}
 
+	delete game;
 	return 0;
 }
